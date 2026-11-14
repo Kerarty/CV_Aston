@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QA viewport</title>
+    <style>
+      html, body { margin: 0; background: #05080e; overflow: hidden; }
+      #scale { transform-origin: top left; }
+      iframe { display: block; border: 0; background: #080d18; }
+      #label { position: fixed; right: 8px; bottom: 8px; z-index: 10; font: 10px monospace; color: #8c9aaf; background:#080d18cc; padding: 3px 6px; }
+    </style>
+  </head>
+  <body>
+    <div id="scale"><iframe id="frame"></iframe></div>
+    <div id="label"></div>
+    <script>
+      const params = new URLSearchParams(location.search)
+      const w = Number(params.get('w') || 1440)
+      const h = Number(params.get('h') || 900)
+      const route = params.get('route') || '/'
+      const scroll = Number(params.get('scroll') || 0)
+      const frame = document.getElementById('frame')
+      frame.width = w
+      frame.height = h
+      frame.src = `http://localhost:5173/#${route}`
+      frame.onload = () => {
+        try { frame.contentWindow.scrollTo(0, scroll) } catch {}
+      }
+      const maxW = window.innerWidth - 8
+      const maxH = window.innerHeight - 8
+      const scale = Math.min(maxW / w, maxH / h, 1)
+      document.getElementById('scale').style.transform = `scale(${scale})`
+      document.getElementById('label').textContent = `${w}×${h} @ ${Math.round(scale * 100)}% · ${route} · y=${scroll}`
+    </script>
+  </body>
+</html>
