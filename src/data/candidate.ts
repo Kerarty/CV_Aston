@@ -46,8 +46,8 @@ export const candidate = {
   } satisfies Record<string, string>,
 
   contacts: {
-    email: null,
-    telegram: null,
+    email: 'kukar.yar@gmail.com',
+    telegram: 'https://t.me/Kerarty',
   } satisfies CandidateContacts,
 
   cvUrl: null as string | null,
