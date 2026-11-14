@@ -80,7 +80,7 @@ function SceneLoader({ sceneReady, onSkip }: { sceneReady: boolean; onSkip: () =
       <div className="mt-4 h-px w-56 overflow-hidden bg-line">
         <div className="h-full w-1/2 animate-pulse bg-accent" />
       </div>
-      <p className="mt-3 max-w-xs text-[11px] leading-relaxed text-[#647b99]">
+      <p className="mt-3 max-w-xs text-[11px] leading-relaxed text-[#6e86a5]">
         {sceneReady
           ? 'Модели загружены. Раскрываем ядро, направления ASTON и портфолио.'
           : 'Загружаем архитектурные модели и материалы сцены.'}
@@ -218,7 +218,7 @@ export default function ProjectEcosystem() {
             <div className="flex items-center gap-2.5">
               <span className="h-1.5 w-1.5 bg-accent" aria-hidden="true" />
               <p className="mono-label">Orbital ecosystem</p>
-              <span className="hidden font-mono text-[9px] uppercase tracking-[0.12em] text-[#5f7695] sm:inline">
+              <span className="hidden font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f] sm:inline">
                 / interactive map
               </span>
             </div>
@@ -294,11 +294,11 @@ export default function ProjectEcosystem() {
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-2 border-t border-line px-4 py-3 sm:px-5">
-            <p className="flex items-center gap-2 text-[10px] leading-relaxed text-[#647b99]">
+            <p className="flex items-center gap-2 text-[10px] leading-relaxed text-[#6e86a5]">
               <MousePointerClick size={12} className="flex-none text-[#6f86a3]" aria-hidden="true" />
               Drag to orbit · scroll to zoom · click an object to inspect
             </p>
-            <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#526986]">
+            <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#647e9e]">
               {webgl ? 'WebGL / live' : 'Schematic / 2D'}
             </p>
           </div>
@@ -308,7 +308,7 @@ export default function ProjectEcosystem() {
           <div className="panel overflow-hidden" aria-live="polite">
             <div className="flex items-center justify-between gap-3 border-b border-line px-5 py-4">
               <p className="mono-label">Node inspector</p>
-              <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#5f7695]">
+              <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">
                 {node.index} / 05
               </span>
             </div>
@@ -336,7 +336,7 @@ export default function ProjectEcosystem() {
                 <div className="mt-5 border-t border-line pt-4">
                   <div className="flex items-center justify-between gap-3">
                     <p className="mono-label-sm">Portfolio dossiers</p>
-                    <span className="font-mono text-[9px] text-[#5f7695]">03</span>
+                    <span className="font-mono text-[9px] text-[#68809f]">03</span>
                   </div>
                   <ul className="mt-2 divide-y divide-line/70">
                     {projects.map((project) => (
@@ -350,7 +350,7 @@ export default function ProjectEcosystem() {
                             <span className="block truncate text-[11.5px] font-medium text-[#c4d0de] group-hover:text-ink">
                               {project.name}
                             </span>
-                            <span className="mt-0.5 block truncate font-mono text-[8px] uppercase tracking-[0.1em] text-[#5f7695]">
+                            <span className="mt-0.5 block truncate font-mono text-[8px] uppercase tracking-[0.1em] text-[#68809f]">
                               {project.type}
                             </span>
                           </span>
@@ -376,7 +376,7 @@ export default function ProjectEcosystem() {
           <div className="panel overflow-hidden">
             <div className="flex items-center justify-between gap-3 border-b border-line px-5 py-4">
               <p className="mono-label">Object index</p>
-              <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#5f7695]">06 nodes</span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">06 nodes</span>
             </div>
             <div className="p-2">
               <ul className="space-y-1">
@@ -421,7 +421,7 @@ export default function ProjectEcosystem() {
                           >
                             {item.label}
                           </span>
-                          <span className="mt-0.5 block truncate text-[9.5px] text-[#5f7695]">{item.ru}</span>
+                          <span className="mt-0.5 block truncate text-[9.5px] text-[#68809f]">{item.ru}</span>
                         </span>
                         <ChevronRight
                           size={12}
@@ -457,7 +457,7 @@ export default function ProjectEcosystem() {
               kenney.nl / assets
               <ExternalLink size={11} aria-hidden="true" />
             </a>
-            <p className="mt-3 border-t border-line pt-3 text-[10px] leading-relaxed text-[#5f7695]">
+            <p className="mt-3 border-t border-line pt-3 text-[10px] leading-relaxed text-[#68809f]">
               Сцена — визуальная навигация. Все данные и ссылки доступны в списке объектов и в разделах портфолио.
             </p>
           </div>

@@ -143,7 +143,7 @@ export function CandidateProfile() {
               ['Форма', candidate.education.form],
             ].map(([label, value]) => (
               <div key={label} className="grid grid-cols-[92px_minmax(0,1fr)] gap-3">
-                <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#5f7695]">{label}</span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#68809f]">{label}</span>
                 <span className="text-[11.5px] leading-snug text-[#c6d0de]">{value}</span>
               </div>
             ))}
@@ -197,7 +197,7 @@ export function CandidateProfile() {
               </li>
             ))}
           </ol>
-          <p className="mt-4 border-t border-line pt-3 text-[10.5px] leading-snug text-[#647b99]">
+          <p className="mt-4 border-t border-line pt-3 text-[10.5px] leading-snug text-[#6e86a5]">
             Без рейтингов и процентных оценок — это качественные характеристики, а не измеренные показатели.
           </p>
         </section>

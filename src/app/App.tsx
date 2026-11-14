@@ -2,15 +2,16 @@ import { lazy } from 'react'
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { CommandCenter } from '@/sections/CommandCenter/CommandCenter'
-import { CandidateProfile } from '@/sections/CandidateProfile/CandidateProfile'
-import { Leadership } from '@/sections/Leadership/Leadership'
-import { ProjectArchive } from '@/sections/ProjectArchive/ProjectArchive'
-import { ManagementLab } from '@/sections/ManagementLab/ManagementLab'
-import { ExecutiveWorkspace } from '@/sections/ExecutiveWorkspace/ExecutiveWorkspace'
-import { AstonIntegration } from '@/sections/AstonIntegration/AstonIntegration'
-import { Contact } from '@/sections/Contact/Contact'
 
+// Главная секция — eager (мгновенный первый экран), остальные грузим по маршруту.
+const CandidateProfile = lazy(() => import('@/sections/CandidateProfile/CandidateProfile').then((m) => ({ default: m.CandidateProfile })))
+const Leadership = lazy(() => import('@/sections/Leadership/Leadership').then((m) => ({ default: m.Leadership })))
+const ProjectArchive = lazy(() => import('@/sections/ProjectArchive/ProjectArchive').then((m) => ({ default: m.ProjectArchive })))
+const ManagementLab = lazy(() => import('@/sections/ManagementLab/ManagementLab').then((m) => ({ default: m.ManagementLab })))
+const ExecutiveWorkspace = lazy(() => import('@/sections/ExecutiveWorkspace/ExecutiveWorkspace').then((m) => ({ default: m.ExecutiveWorkspace })))
+const AstonIntegration = lazy(() => import('@/sections/AstonIntegration/AstonIntegration').then((m) => ({ default: m.AstonIntegration })))
 const ProjectEcosystem = lazy(() => import('@/sections/ProjectEcosystem/ProjectEcosystem'))
+const Contact = lazy(() => import('@/sections/Contact/Contact').then((m) => ({ default: m.Contact })))
 
 export function App() {
   return (

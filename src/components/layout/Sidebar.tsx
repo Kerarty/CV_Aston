@@ -6,6 +6,7 @@ import {
   Download,
   Github,
   Mail,
+  Send,
   X,
 } from 'lucide-react'
 import { contactSection, sections } from '@/app/navigation'
@@ -169,6 +170,35 @@ export function Sidebar({ collapsed, mobileOpen, onToggleCollapse, onCloseMobile
             >
               <Download size={15} aria-hidden="true" />
               <span className={cn(compact && 'sr-only')}>Скачать CV</span>
+            </a>
+          ) : null}
+
+          {candidate.contacts.email ? (
+            <a
+              href={`mailto:${candidate.contacts.email}`}
+              className={cn(
+                'flex min-h-[42px] items-center gap-2 border border-transparent px-2.5 text-[11px] text-muted no-underline transition-colors hover:border-line hover:bg-panel-2/45 hover:text-ink',
+                compact && 'w-11 justify-center px-0',
+              )}
+            >
+              <Mail size={15} aria-hidden="true" />
+              <span className={cn(compact && 'sr-only')}>Email</span>
+            </a>
+          ) : null}
+
+          {candidate.contacts.telegram ? (
+            <a
+              href={candidate.contacts.telegram}
+              target="_blank"
+              rel="noreferrer noopener"
+              className={cn(
+                'flex min-h-[42px] items-center gap-2 border border-transparent px-2.5 text-[11px] text-muted no-underline transition-colors hover:border-line hover:bg-panel-2/45 hover:text-ink',
+                compact && 'w-11 justify-center px-0',
+              )}
+            >
+              <Send size={15} aria-hidden="true" />
+              <span className={cn(compact && 'sr-only')}>Telegram</span>
+              <ArrowUpRight size={12} className={cn('ml-auto opacity-60', compact && 'hidden')} aria-hidden="true" />
             </a>
           ) : null}
 

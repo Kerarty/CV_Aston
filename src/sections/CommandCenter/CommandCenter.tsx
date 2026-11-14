@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowRight, Play, UserRound } from 'lucide-react'
+import { ArrowRight, Github, Mail, Play, Send, UserRound } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { Button, buttonClass } from '@/components/ui/Button'
 import { LogoMark } from '@/components/ui/LogoMark'
@@ -34,7 +34,7 @@ function BootScreen({ onFinish }: { onFinish: () => void }) {
             className="h-full w-full origin-left bg-accent"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
-            transition={{ duration: 1.45, ease: [0.4, 0, 0.2, 1] }}
+            transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
           />
         </div>
         <div className="mt-4 flex items-center justify-between">
@@ -95,7 +95,7 @@ export function CommandCenter() {
       } catch {
         // Ignore storage restrictions.
       }
-    }, 1700)
+    }, 950)
     return () => window.clearTimeout(timer)
   }, [booting])
 
@@ -116,7 +116,7 @@ export function CommandCenter() {
         <section aria-labelledby="hero-title">
           <div className="flex items-center justify-between gap-4">
             <p className="mono-label max-w-[70%] truncate">{candidate.programme}</p>
-            <p className="hidden font-mono text-[10px] uppercase tracking-[0.14em] text-[#5f7695] sm:block">
+            <p className="hidden font-mono text-[10px] uppercase tracking-[0.14em] text-[#68809f] sm:block">
               2026 / Application
             </p>
           </div>
@@ -132,20 +132,52 @@ export function CommandCenter() {
             </div>
 
             <div className="border-l border-line pl-4 lg:mb-1 lg:pl-6">
-              <p className="font-display text-2xl font-semibold leading-[1.05] tracking-[-0.035em] text-ink sm:text-3xl">
-                Build the Future
+              <p className="mono-label">Candidate / application 2026</p>
+              <p className="mt-3 font-display text-3xl font-bold leading-[1.02] tracking-[-0.04em] text-ink sm:text-4xl">
+                {candidate.latinName}
               </p>
-              <p className="mt-3 text-[13px] leading-relaxed text-muted">{candidate.tagline}</p>
-              <p className="mt-5 font-mono text-[9px] uppercase leading-relaxed tracking-[0.14em] text-[#5b7291]">
-                Technical thinking
-                <br />
-                Management mindset
+              <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.16em] text-accent">
+                {candidate.role}
               </p>
+              <p className="mt-3 max-w-[280px] text-[13px] leading-relaxed text-muted">{candidate.tagline}</p>
             </div>
           </div>
 
           <div className="mt-9 lg:mt-11">
             <InfoStrip />
+          </div>
+
+          <div className="mt-6 flex flex-wrap items-center gap-2.5 lg:mt-8">
+            <button type="button" onClick={() => navigate('/profile')} className={buttonClass('primary', 'sm:min-w-[230px]')}>
+              Начать знакомство
+              <ArrowRight size={13} aria-hidden="true" />
+            </button>
+            {candidate.contacts.telegram ? (
+              <a
+                href={candidate.contacts.telegram}
+                target="_blank"
+                rel="noreferrer noopener"
+                className={buttonClass('secondary')}
+              >
+                <Send size={13} aria-hidden="true" />
+                Telegram
+              </a>
+            ) : null}
+            {candidate.contacts.email ? (
+              <a href={`mailto:${candidate.contacts.email}`} className={buttonClass('ghost')}>
+                <Mail size={13} aria-hidden="true" />
+                Email
+              </a>
+            ) : null}
+            <a
+              href={candidate.links.github}
+              target="_blank"
+              rel="noreferrer noopener"
+              className={buttonClass('ghost')}
+            >
+              <Github size={13} aria-hidden="true" />
+              GitHub
+            </a>
           </div>
         </section>
 

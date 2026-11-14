@@ -146,7 +146,7 @@ export function AstonIntegration() {
 
                         <div className="mt-4 flex items-center gap-2 border-t border-line pt-3">
                           <Target size={12} className="flex-none text-[#627b9b]" aria-hidden="true" />
-                          <p className="text-[10px] leading-relaxed text-[#647b99]">
+                          <p className="text-[10px] leading-relaxed text-[#6e86a5]">
                             Направление выбрано как область интереса, а не как подтверждённая специализация.
                           </p>
                         </div>
@@ -163,7 +163,7 @@ export function AstonIntegration() {
           <div className="panel flex h-full flex-col overflow-hidden">
             <div className="border-b border-line px-5 py-4">
               <p className="mono-label">Application focus</p>
-              <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.12em] text-[#5f7695]">02 primary / 02 open</p>
+              <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">02 primary / 02 open</p>
             </div>
 
             <div className="p-5 sm:p-6">
@@ -173,7 +173,7 @@ export function AstonIntegration() {
                 </span>
                 <div>
                   <p className="font-display text-lg font-semibold tracking-[-0.02em]">Delivery + Operations</p>
-                  <p className="mt-0.5 font-mono text-[8.5px] uppercase tracking-[0.12em] text-[#5f7695]">Initial focus</p>
+                  <p className="mt-0.5 font-mono text-[8.5px] uppercase tracking-[0.12em] text-[#68809f]">Initial focus</p>
                 </div>
               </div>
 

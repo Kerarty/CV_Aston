@@ -1,7 +1,10 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight,
   ArrowUpRight,
+  Check,
+  Copy,
   Download,
   Github,
   Mail,
@@ -15,10 +18,24 @@ import { LogoMark } from '@/components/ui/LogoMark'
 import { candidate } from '@/data/candidate'
 import { astonNote } from '@/data/astonDirections'
 import { projects } from '@/data/projects'
+import { cn } from '@/utils/cn'
 
 export function Contact() {
   const { email, telegram } = candidate.contacts
   const directContacts = Boolean(email || telegram)
+  const [emailCopied, setEmailCopied] = useState(false)
+  const telegramHandle = telegram?.match(/t\.me\/([^/?#]+)/)?.[1]
+
+  const copyEmail = async () => {
+    if (!email) return
+    try {
+      await navigator.clipboard.writeText(email)
+      setEmailCopied(true)
+      window.setTimeout(() => setEmailCopied(false), 2200)
+    } catch {
+      // Clipboard API unavailable (e.g. http context) — адрес остаётся видимым текстом.
+    }
+  }
 
   return (
     <div className="page-shell page-top">
@@ -71,23 +88,39 @@ export function Contact() {
             </footer>
           </blockquote>
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            <a
-              href={candidate.links.github}
-              target="_blank"
-              rel="noreferrer noopener"
-              className={buttonClass('primary')}
-            >
-              <Github size={14} aria-hidden="true" />
-              GitHub
-              <ArrowUpRight size={13} aria-hidden="true" />
-            </a>
-
+          <div
+            className="mt-8 grid max-w-2xl gap-px border border-line bg-line sm:grid-cols-2"
+            aria-label="Способы связаться"
+          >
             {email ? (
-              <a href={`mailto:${email}`} className={buttonClass('secondary')}>
-                <Mail size={14} aria-hidden="true" />
-                Email
-              </a>
+              <div className="flex items-center gap-3.5 bg-panel/70 p-4 sm:col-span-2">
+                <span className="flex h-11 w-11 flex-none items-center justify-center border border-accent/35 bg-accent/10 text-accent">
+                  <Mail size={17} aria-hidden="true" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="mono-label-sm">Email</p>
+                  <a
+                    href={`mailto:${email}`}
+                    className="mt-1 block truncate text-[14px] font-medium text-ink no-underline transition-colors hover:text-accent"
+                  >
+                    {email}
+                  </a>
+                </div>
+                <button
+                  type="button"
+                  onClick={copyEmail}
+                  aria-live="polite"
+                  className={cn(
+                    'flex h-10 flex-none items-center gap-2 border px-3 font-mono text-[9px] uppercase tracking-[0.12em] transition-colors',
+                    emailCopied
+                      ? 'border-teal/45 bg-teal/10 text-teal'
+                      : 'border-line text-muted hover:border-accent/50 hover:text-ink',
+                  )}
+                >
+                  {emailCopied ? <Check size={13} aria-hidden="true" /> : <Copy size={13} aria-hidden="true" />}
+                  {emailCopied ? 'Скопировано' : 'Копировать'}
+                </button>
+              </div>
             ) : null}
 
             {telegram ? (
@@ -95,13 +128,49 @@ export function Contact() {
                 href={telegram}
                 target="_blank"
                 rel="noreferrer noopener"
-                className={buttonClass('secondary')}
+                className="group flex items-center gap-3.5 bg-panel/70 p-4 no-underline transition-colors hover:bg-panel-2/60"
               >
-                <Send size={14} aria-hidden="true" />
-                Telegram
+                <span className="flex h-11 w-11 flex-none items-center justify-center border border-teal/35 bg-teal/10 text-teal">
+                  <Send size={17} aria-hidden="true" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="mono-label-sm">Telegram</p>
+                  <p className="mt-1 truncate text-[14px] font-medium text-ink transition-colors group-hover:text-accent">
+                    {telegramHandle ? `@${telegramHandle}` : telegram}
+                  </p>
+                </div>
+                <ArrowUpRight
+                  size={15}
+                  className="flex-none text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                  aria-hidden="true"
+                />
               </a>
             ) : null}
 
+            <a
+              href={candidate.links.github}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="group flex items-center gap-3.5 bg-panel/70 p-4 no-underline transition-colors hover:bg-panel-2/60"
+            >
+              <span className="flex h-11 w-11 flex-none items-center justify-center border border-line bg-base/50 text-muted transition-colors group-hover:border-accent/50 group-hover:text-ink">
+                <Github size={17} aria-hidden="true" />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="mono-label-sm">GitHub</p>
+                <p className="mt-1 truncate text-[14px] font-medium text-ink transition-colors group-hover:text-accent">
+                  {candidate.links.github.replace('https://github.com/', '')}
+                </p>
+              </div>
+              <ArrowUpRight
+                size={15}
+                className="flex-none text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                aria-hidden="true"
+              />
+            </a>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-2">
             {candidate.cvUrl ? (
               <a href={candidate.cvUrl} download className={buttonClass('secondary')}>
                 <Download size={14} aria-hidden="true" />
@@ -116,7 +185,7 @@ export function Contact() {
           </div>
 
           {!directContacts ? (
-            <p className="mt-4 max-w-lg text-[10.5px] leading-relaxed text-[#647b99]">
+            <p className="mt-4 max-w-lg text-[10.5px] leading-relaxed text-[#6e86a5]">
               Прямые контакты (email и Telegram) не опубликованы в этой версии. Связаться можно через GitHub.
             </p>
           ) : null}
@@ -126,7 +195,7 @@ export function Contact() {
           <div className="panel overflow-hidden">
             <div className="flex items-center justify-between gap-3 border-b border-line px-5 py-4">
               <p className="mono-label">Candidate snapshot</p>
-              <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#5f7695]">YK / 2026</span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">YK / 2026</span>
             </div>
 
             <div className="p-5">
@@ -150,7 +219,7 @@ export function Contact() {
                   ['Course', candidate.education.course],
                 ].map(([label, value]) => (
                   <div key={label} className="grid grid-cols-[92px_minmax(0,1fr)] gap-3 py-2.5">
-                    <dt className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#5f7695]">{label}</dt>
+                    <dt className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#68809f]">{label}</dt>
                     <dd className="text-[11px] leading-snug text-[#c1cedd]">{value}</dd>
                   </div>
                 ))}
@@ -177,7 +246,7 @@ export function Contact() {
           <div className="panel overflow-hidden">
             <div className="flex items-center justify-between gap-3 border-b border-line px-5 py-4">
               <p className="mono-label">Application paths</p>
-              <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#5f7695]">03</span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">03</span>
             </div>
             <div className="p-2">
               <ul className="space-y-1">
@@ -196,7 +265,7 @@ export function Contact() {
                         <span className="block truncate text-[11.5px] font-medium text-[#c4d0de] group-hover:text-ink">
                           {item.label}
                         </span>
-                        <span className="mt-0.5 block truncate text-[9.5px] text-[#5f7695]">{item.ru}</span>
+                        <span className="mt-0.5 block truncate text-[9.5px] text-[#68809f]">{item.ru}</span>
                       </span>
                       <ArrowUpRight
                         size={12}
@@ -240,7 +309,7 @@ export function Contact() {
           </div>
           <div className="p-5 sm:p-6">
             <p className="text-pretty text-[12.5px] leading-relaxed text-[#b9c7d8]">{astonNote}</p>
-            <p className="mt-4 border-t border-line pt-3 text-[10px] leading-relaxed text-[#5f7695]">
+            <p className="mt-4 border-t border-line pt-3 text-[10px] leading-relaxed text-[#68809f]">
               {candidate.disclaimer}
             </p>
           </div>

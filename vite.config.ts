@@ -15,5 +15,16 @@ export default defineConfig(({ command }) => ({
     target: 'es2022',
     sourcemap: false,
     chunkSizeWarningLimit: 900,
+    rollupOptions: {
+      output: {
+        // Three.js — самый тяжёлый кусок и используется только ленивым
+        // графом /ecosystem, поэтому его можно изолировать безопасно.
+        // Группировать fiber/drei нельзя: их зависимости (react и др.)
+        // шарятся с entry и утянут чанк в eager-загрузку.
+        manualChunks(id) {
+          if (/[\\/]node_modules[\\/](three|three-stdlib)[\\/]/.test(id)) return 'three'
+        },
+      },
+    },
   },
 }))

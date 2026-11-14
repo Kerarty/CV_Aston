@@ -70,7 +70,7 @@ export function ExecutiveWorkspace() {
               <FileText size={15} className="text-accent" aria-hidden="true" />
               <p className="mono-label">Planning</p>
             </div>
-            <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#5f7695]">05 steps</span>
+            <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">05 steps</span>
           </div>
 
           <div className="flex flex-1 flex-col p-5 sm:p-6">
@@ -97,7 +97,7 @@ export function ExecutiveWorkspace() {
 
             <div className="mt-auto flex items-start gap-2 border-t border-line pt-4">
               <Check size={13} className="mt-0.5 flex-none text-teal" aria-hidden="true" />
-              <p className="text-[10.5px] leading-relaxed text-[#647b99]">
+              <p className="text-[10.5px] leading-relaxed text-[#6e86a5]">
                 Jira и другие системы управления проектами не указаны как освоенные инструменты без подтверждённого
                 практического контекста.
               </p>
@@ -126,7 +126,7 @@ export function ExecutiveWorkspace() {
             <div className="mt-4 overflow-hidden border border-line bg-[#0a111d]">
               <div className="flex items-center justify-between border-b border-line px-3 py-2">
                 <span className="font-mono text-[8.5px] uppercase tracking-[0.12em] text-[#6f86a3]">Workspace / example session</span>
-                <span className="flex items-center gap-1.5 font-mono text-[8px] uppercase tracking-[0.1em] text-[#647b99]">
+                <span className="flex items-center gap-1.5 font-mono text-[8px] uppercase tracking-[0.1em] text-[#6e86a5]">
                   <span className="h-1 w-1 rounded-full bg-warning" aria-hidden="true" />
                   Offline demo
                 </span>
@@ -152,7 +152,7 @@ export function ExecutiveWorkspace() {
                   </div>
                 ))}
               </div>
-              <div className="border-t border-line px-3 py-2 font-mono text-[8px] uppercase tracking-[0.1em] text-[#526986]">
+              <div className="border-t border-line px-3 py-2 font-mono text-[8px] uppercase tracking-[0.1em] text-[#647e9e]">
                 Не является чат-ботом · демонстрация процесса
               </div>
             </div>
@@ -178,7 +178,7 @@ export function ExecutiveWorkspace() {
               Инструменты по категориям
             </h2>
           </div>
-          <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#5f7695]">Select a tool / read context</p>
+          <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">Select a tool / read context</p>
         </div>
 
         <div className="p-5 sm:p-6">
@@ -196,7 +196,7 @@ export function ExecutiveWorkspace() {
               >
                 <div className="flex items-baseline justify-between gap-2">
                   <p className="mono-label-sm">{group.title}</p>
-                  <span className="font-mono text-[8px] text-[#526986]">{String(group.tools.length).padStart(2, '0')}</span>
+                  <span className="font-mono text-[8px] text-[#647e9e]">{String(group.tools.length).padStart(2, '0')}</span>
                 </div>
                 <p className="mt-1 text-[9.5px] leading-snug text-[#627997]">{group.caption}</p>
                 <div className="mt-3 flex flex-wrap gap-1.5">
@@ -229,7 +229,7 @@ export function ExecutiveWorkspace() {
 
           <div className="mt-3 flex items-start gap-2">
             <Sparkles size={12} className="mt-0.5 flex-none text-[#627b9b]" aria-hidden="true" />
-            <p className="text-[10px] leading-relaxed text-[#5f7695]">
+            <p className="text-[10px] leading-relaxed text-[#68809f]">
               Уровень владения не показан в процентах или шкалах: ниже указан только фактический контекст использования.
             </p>
           </div>
@@ -245,7 +245,7 @@ export function ExecutiveWorkspace() {
                 Документы и аналитика
               </h2>
             </div>
-            <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#5f7695]">05 tools</span>
+            <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">05 tools</span>
           </div>
           <div className="grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-3">
             {documentationTools.map((tool) => (
@@ -258,7 +258,7 @@ export function ExecutiveWorkspace() {
                 </div>
                 <p className="mt-3 text-[11.5px] font-medium text-[#c6d2e0]">{tool.name}</p>
                 <p className="mt-1 text-[10px] leading-snug text-[#7d91aa]">{tool.description}</p>
-                <p className="mt-2 border-t border-line/60 pt-2 text-[9px] leading-snug text-[#5f7695]">{tool.context}</p>
+                <p className="mt-2 border-t border-line/60 pt-2 text-[9px] leading-snug text-[#68809f]">{tool.context}</p>
               </div>
             ))}
           </div>
@@ -272,7 +272,7 @@ export function ExecutiveWorkspace() {
                 Рабочий цикл с AI
               </h2>
             </div>
-            <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#5f7695]">06 steps</span>
+            <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">06 steps</span>
           </div>
           <ol className="mt-4 space-y-2">
             {aiWorkflow.map((step) => (
@@ -285,7 +285,7 @@ export function ExecutiveWorkspace() {
               </li>
             ))}
           </ol>
-          <p className="mt-4 border-t border-line pt-3 text-[10px] leading-relaxed text-[#647b99]">
+          <p className="mt-4 border-t border-line pt-3 text-[10px] leading-relaxed text-[#6e86a5]">
             Проверка результата — обязательный этап. AI не заменяет понимание задачи и ответственность за решение.
           </p>
         </section>

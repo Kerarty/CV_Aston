@@ -118,7 +118,7 @@ export function ManagementLab() {
                   </li>
                 ))}
               </ol>
-              <p className="mt-5 border-t border-line pt-4 text-[10.5px] leading-relaxed text-[#647b99]">
+              <p className="mt-5 border-t border-line pt-4 text-[10.5px] leading-relaxed text-[#6e86a5]">
                 Это демонстрационная образовательная симуляция, а не оценка реальных управленческих компетенций.
               </p>
             </div>
@@ -130,7 +130,7 @@ export function ManagementLab() {
             <div className="border-b border-line px-5 py-4">
               <div className="flex items-center justify-between gap-3">
                 <p className="mono-label">Scenario index</p>
-                <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#5f7695]">{answeredCount} / 03</span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">{answeredCount} / 03</span>
               </div>
               <h2 id="scenario-index-heading" className="mt-1 font-display text-lg font-semibold tracking-[-0.02em]">
                 Ситуации
@@ -169,7 +169,7 @@ export function ManagementLab() {
                           <span className={cn('block truncate text-[12px] font-medium', isActive ? 'text-ink' : 'text-[#b4c2d4]')}>
                             {scenario.title}
                           </span>
-                          <span className="mt-0.5 block truncate text-[10px] text-[#647b99]">{scenario.ru}</span>
+                          <span className="mt-0.5 block truncate text-[10px] text-[#6e86a5]">{scenario.ru}</span>
                         </span>
                         <ChevronRight size={13} className={cn('flex-none', isActive ? 'text-accent' : 'text-[#4f6684]')} aria-hidden="true" />
                       </button>
@@ -188,14 +188,14 @@ export function ManagementLab() {
                   'flex min-h-[44px] w-full items-center gap-3 border px-3 text-left transition-colors',
                   allAnswered
                     ? 'border-teal/35 bg-teal/8 text-[#9de8de] hover:bg-teal/12'
-                    : 'cursor-not-allowed border-line text-[#526986] opacity-55',
+                    : 'cursor-not-allowed border-line text-[#647e9e] opacity-55',
                 )}
               >
                 <span className="font-mono text-[9px]">04</span>
                 <span className="flex-1 text-[11px] font-medium">Итог симуляции</span>
                 <ArrowRight size={13} aria-hidden="true" />
               </button>
-              <p className="mt-3 px-1 text-[10px] leading-relaxed text-[#5f7695]">
+              <p className="mt-3 px-1 text-[10px] leading-relaxed text-[#68809f]">
                 Сценарии можно проходить в любом порядке. Ответ можно изменить до перехода к итогу.
               </p>
             </div>
@@ -330,8 +330,8 @@ export function ManagementLab() {
                 </div>
               ) : (
                 <div className="mt-6 flex items-center justify-between gap-4 border-t border-line pt-5">
-                  <p className="text-[11px] text-[#647b99]">Выберите один из подходов, чтобы увидеть разбор последствий.</p>
-                  <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#526986]">
+                  <p className="text-[11px] text-[#6e86a5]">Выберите один из подходов, чтобы увидеть разбор последствий.</p>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#647e9e]">
                     {answeredCount} / 03 answered
                   </span>
                 </div>

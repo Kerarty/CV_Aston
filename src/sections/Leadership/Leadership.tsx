@@ -102,7 +102,7 @@ function ManagementCycle() {
             Как устроен рабочий цикл
           </h2>
         </div>
-        <div className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.14em] text-[#5f7695]">
+        <div className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.14em] text-[#68809f]">
           <RotateCcw size={12} aria-hidden="true" />
           Repeating process
         </div>
@@ -228,7 +228,7 @@ function ManagementCycle() {
             })}
           </div>
 
-          <p className="mt-auto pt-5 font-mono text-[9px] uppercase leading-relaxed tracking-[0.12em] text-[#5f7695]">
+          <p className="mt-auto pt-5 font-mono text-[9px] uppercase leading-relaxed tracking-[0.12em] text-[#68809f]">
             После review цикл возвращается к plan — это не линейная, а повторяющаяся последовательность.
           </p>
         </div>
@@ -305,11 +305,11 @@ export function Leadership() {
           </div>
 
           <div className="relative flex min-h-[280px] items-center justify-center border-t border-line bg-base/25 p-4 lg:border-l lg:border-t-0">
-            <div className="absolute left-4 top-4 font-mono text-[9px] uppercase tracking-[0.14em] text-[#5f7695]">
+            <div className="absolute left-4 top-4 font-mono text-[9px] uppercase tracking-[0.14em] text-[#68809f]">
               Coordination map
             </div>
             <LeadershipMap />
-            <div className="absolute bottom-4 right-4 font-mono text-[9px] uppercase tracking-[0.14em] text-[#5f7695]">
+            <div className="absolute bottom-4 right-4 font-mono text-[9px] uppercase tracking-[0.14em] text-[#68809f]">
               04 areas / 01 lead
             </div>
           </div>
@@ -324,7 +324,7 @@ export function Leadership() {
               Четыре направления опыта
             </h2>
           </div>
-          <p className="hidden font-mono text-[9px] uppercase tracking-[0.14em] text-[#5f7695] sm:block">
+          <p className="hidden font-mono text-[9px] uppercase tracking-[0.14em] text-[#68809f] sm:block">
             Select to expand
           </p>
         </div>

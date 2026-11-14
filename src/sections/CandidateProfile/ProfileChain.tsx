@@ -53,7 +53,7 @@ export function ProfileChain() {
             От технологии к результату
           </h2>
         </div>
-        <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#5f7695]">
+        <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#68809f]">
           Interactive / 05 stages
         </p>
       </div>
