@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig(({ command }) => ({
-  base: command === 'build' ? (process.env.VITE_BASE ?? '/project-zero/') : '/',
+  base: command === 'build' ? (process.env.VITE_BASE ?? '/CV_Aston/') : '/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
