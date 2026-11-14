@@ -38,8 +38,14 @@ export function MainLayout() {
   const [presentation, setPresentation] = useState(false)
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    document.getElementById('main')?.focus({ preventScroll: true })
     setMobileOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    const section = getSectionByPath(pathname)
+    document.title = `${section.label} · PROJECT ZERO — Yaroslav Kukar`
   }, [pathname])
 
   useEffect(() => {
@@ -59,6 +65,10 @@ export function MainLayout() {
       if (target instanceof HTMLElement && ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) return
 
       if (event.key === 'Escape') {
+        // An open dialog (e.g. project dossier) handles its own Escape —
+        // don't exit the whole presentation mode from under it.
+        const openDialog = document.querySelector('[role="dialog"][aria-modal="true"]')
+        if (openDialog) return
         event.preventDefault()
         setPresentation(false)
       } else if (event.key === 'ArrowRight') {
@@ -132,7 +142,7 @@ export function MainLayout() {
           onTogglePresentation={presentation ? stopPresentation : startPresentation}
         />
 
-        <main id="main" className="min-h-[calc(100dvh-64px)]">
+        <main id="main" tabIndex={-1} className="min-h-[calc(100dvh-64px)] outline-none">
           <AnimatePresence mode="wait" initial={false}>
             <PageTransition key={pathname}>
               <Suspense fallback={<RouteFallback />}>{outlet}</Suspense>

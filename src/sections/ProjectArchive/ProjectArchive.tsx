@@ -18,10 +18,18 @@ function DossierRow({ label, children }: { label: string; children: ReactNode })
   )
 }
 
-function ProjectDossier({ project, onClose }: { project: Project | null; onClose: () => void }) {
+function ProjectDossier({
+  project,
+  open,
+  onClose,
+}: {
+  project: Project | null
+  open: boolean
+  onClose: () => void
+}) {
   return (
     <Modal
-      open={Boolean(project)}
+      open={open}
       onClose={onClose}
       title={project ? `${project.name} — project dossier` : 'Project dossier'}
       eyebrow={project ? `${project.index} / ${project.type}` : undefined}
@@ -143,6 +151,8 @@ function ProjectDossier({ project, onClose }: { project: Project | null; onClose
 export function ProjectArchive() {
   const [selected, setSelected] = useState(projects[0])
   const [dossier, setDossier] = useState<Project | null>(null)
+  // Keep the project in state after close so the exit animation doesn't show an empty panel.
+  const [dossierOpen, setDossierOpen] = useState(false)
 
   return (
     <div className="page-shell page-top">
@@ -176,7 +186,7 @@ export function ProjectArchive() {
                 Проектные досье
               </h2>
             </div>
-            <span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.12em] text-[#5f7695]">
+            <span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">
               <Layers size={12} aria-hidden="true" />
               03
             </span>
@@ -206,7 +216,7 @@ export function ProjectArchive() {
                         <span className={cn('block truncate font-display text-[15px] font-semibold tracking-[-0.02em]', isActive ? 'text-ink' : 'text-[#c4cedc]')}>
                           {project.name}
                         </span>
-                        <span className="mt-1 block truncate font-mono text-[8.5px] uppercase tracking-[0.11em] text-[#647b99]">
+                        <span className="mt-1 block truncate font-mono text-[8.5px] uppercase tracking-[0.11em] text-[#6e86a5]">
                           {project.type}
                         </span>
                       </span>
@@ -223,7 +233,7 @@ export function ProjectArchive() {
           </div>
 
           <div className="border-t border-line px-5 py-4">
-            <p className="flex items-start gap-2 text-[10.5px] leading-relaxed text-[#647b99]">
+            <p className="flex items-start gap-2 text-[10.5px] leading-relaxed text-[#6e86a5]">
               <FileText size={13} className="mt-0.5 flex-none" aria-hidden="true" />
               В архив включены только проекты, о которых есть подтверждённый контекст. Материалы без реальных файлов не
               добавлялись.
@@ -268,7 +278,13 @@ export function ProjectArchive() {
             </div>
 
             <div className="mt-6 flex flex-wrap gap-2 border-t border-line pt-5">
-              <Button variant="primary" onClick={() => setDossier(selected)}>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  setDossier(selected)
+                  setDossierOpen(true)
+                }}
+              >
                 <FileText size={14} aria-hidden="true" />
                 Открыть досье
               </Button>
@@ -289,7 +305,7 @@ export function ProjectArchive() {
         </section>
       </div>
 
-      <ProjectDossier project={dossier} onClose={() => setDossier(null)} />
+      <ProjectDossier project={dossier} open={dossierOpen} onClose={() => setDossierOpen(false)} />
 
       <PageFooterNav />
     </div>

@@ -51,17 +51,23 @@ export function Topbar({ onOpenMobile, presentation, onTogglePresentation }: Top
         )}
 
         {!presentation ? (
-          <NavLink
-            to="/"
-            className={cn(
-              'flex h-10 w-10 items-center justify-center border border-line text-muted transition-colors hover:border-accent/50 hover:text-ink',
-              pathname === '/' && 'pointer-events-none opacity-35',
-            )}
-            aria-label="На главный экран"
-            title="На главный экран"
-          >
-            <Home size={15} aria-hidden="true" />
-          </NavLink>
+          pathname === '/' ? (
+            <span
+              className="flex h-10 w-10 items-center justify-center border border-line text-muted opacity-35"
+              aria-hidden="true"
+            >
+              <Home size={15} />
+            </span>
+          ) : (
+            <NavLink
+              to="/"
+              className="flex h-10 w-10 items-center justify-center border border-line text-muted transition-colors hover:border-accent/50 hover:text-ink"
+              aria-label="На главный экран"
+              title="На главный экран"
+            >
+              <Home size={15} aria-hidden="true" />
+            </NavLink>
+          )
         ) : null}
 
         <button

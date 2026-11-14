@@ -34,7 +34,7 @@ export function SceneFallback({ selected, onSelect, reason }: SceneFallbackProps
     <div className="relative h-full w-full overflow-hidden bg-[#070c15]">
       <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between gap-3 border-b border-line/60 px-4 py-3">
         <p className="mono-label-sm">Schematic mode / no WebGL</p>
-        <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#5f7695]">2D fallback</p>
+        <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">2D fallback</p>
       </div>
 
       <svg viewBox="0 0 600 500" className="h-full w-full" role="group" aria-label="Схема экосистемы PROJECT ZERO">
@@ -84,7 +84,7 @@ export function SceneFallback({ selected, onSelect, reason }: SceneFallbackProps
           role="button"
           tabIndex={0}
           aria-label="Ядро PROJECT ZERO"
-          className="cursor-pointer outline-none"
+          className="cursor-pointer"
           onClick={() => onSelect('core')}
           onKeyDown={(event) => activate(event, 'core')}
         >
@@ -114,7 +114,7 @@ export function SceneFallback({ selected, onSelect, reason }: SceneFallbackProps
               role="button"
               tabIndex={0}
               aria-label={`${node.index}. ${node.label} — ${node.ru}`}
-              className="cursor-pointer outline-none"
+              className="cursor-pointer"
               onClick={() => onSelect(node.id)}
               onKeyDown={(event) => activate(event, node.id)}
             >
@@ -156,7 +156,7 @@ export function SceneFallback({ selected, onSelect, reason }: SceneFallbackProps
           role="button"
           tabIndex={0}
           aria-label="PORTFOLIO ISLAND — портфолио проектов"
-          className="cursor-pointer outline-none"
+          className="cursor-pointer"
           onClick={() => onSelect('island')}
           onKeyDown={(event) => activate(event, 'island')}
         >
@@ -194,7 +194,7 @@ export function SceneFallback({ selected, onSelect, reason }: SceneFallbackProps
         </g>
       </svg>
 
-      <p className="absolute inset-x-0 bottom-0 z-10 border-t border-line/60 px-4 py-3 text-center text-[10.5px] leading-relaxed text-[#647b99]">
+      <p className="absolute inset-x-0 bottom-0 z-10 border-t border-line/60 px-4 py-3 text-center text-[10.5px] leading-relaxed text-[#6e86a5]">
         {reason ?? 'WebGL недоступен на этом устройстве. Схема сохраняет навигацию и содержание раздела.'}
       </p>
     </div>

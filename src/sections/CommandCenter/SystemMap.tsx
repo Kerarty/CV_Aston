@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { sections } from '@/app/navigation'
 import { cn } from '@/utils/cn'
@@ -16,6 +16,8 @@ function polar(index: number, total: number, radius: number) {
 }
 
 export function SystemMap() {
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
   const [activeId, setActiveId] = useState<string | null>(null)
   const active = sections.find((section) => section.id === activeId) ?? null
 
@@ -37,7 +39,7 @@ export function SystemMap() {
           <span className="h-1.5 w-1.5 bg-accent" aria-hidden="true" />
           <p className="mono-label">Project map</p>
         </div>
-        <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#5f7695]">08 modules / 01 core</p>
+        <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#68809f]">08 modules / 01 core</p>
       </div>
 
       <div className="relative flex flex-1 flex-col justify-center px-3 py-4 sm:px-5">
@@ -83,7 +85,7 @@ export function SystemMap() {
           </g>
 
           {nodes.map(({ section, x, y }) => {
-            const isActive = activeId === section.id
+            const isActive = activeId === section.id || pathname === section.path
             return (
               <line
                 key={`line-${section.id}`}
@@ -141,16 +143,16 @@ export function SystemMap() {
                 role="button"
                 tabIndex={0}
                 aria-label={`${section.number}. ${section.label} — ${section.ru}`}
-                className="cursor-pointer outline-none"
+                className="cursor-pointer"
                 onMouseEnter={() => activate(section.id)}
                 onMouseLeave={() => setActiveId(null)}
                 onFocus={() => activate(section.id)}
                 onBlur={() => setActiveId(null)}
-                onClick={() => activate(section.id)}
+                onClick={() => navigate(section.path)}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault()
-                    activate(section.id)
+                    navigate(section.path)
                   }
                 }}
               >

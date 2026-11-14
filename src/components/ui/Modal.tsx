@@ -79,7 +79,7 @@ export function Modal({ open, onClose, title, eyebrow, children, className }: Mo
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          onMouseDown={(event) => {
+          onClick={(event) => {
             if (event.target === event.currentTarget) onClose()
           }}
         >
