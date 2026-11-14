@@ -70,60 +70,60 @@ function CameraRig({
   resetToken,
   progress,
   controlsRef,
-  introCancelled,
+  introCancelledRef,
   autoRotate,
 }: {
   focus: EcosystemNodeId | 'overview'
   resetToken: number
   progress: ProgressRef
   controlsRef: { current: OrbitControlsImpl | null }
-  introCancelled: { current: boolean }
+  introCancelledRef: { current: boolean }
   autoRotate: boolean
 }) {
   const { camera } = useThree()
-  const animation = useRef<{ position: THREE.Vector3; target: THREE.Vector3 } | null>(null)
-  const introSettled = useRef(false)
+  const animationRef = useRef<{ position: THREE.Vector3; target: THREE.Vector3 } | null>(null)
+  const introSettledRef = useRef(false)
 
   useEffect(() => {
     if (focus === 'overview' && resetToken === 0) return
     const view = getView(focus)
-    animation.current = { position: view.position, target: view.target }
-    introCancelled.current = true
-  }, [focus, resetToken, introCancelled])
+    animationRef.current = { position: view.position, target: view.target }
+    introCancelledRef.current = true
+  }, [focus, resetToken, introCancelledRef])
 
   useFrame((_, delta) => {
     const controls = controlsRef.current
     if (!controls) return
 
     const value = progress.current?.value ?? 1
-    if (focus === 'overview' && !introCancelled.current) {
+    if (focus === 'overview' && !introCancelledRef.current) {
       if (value < 0.999) {
         const eased = value * value * (3 - 2 * value)
         camera.position.lerpVectors(INTRO_POSITION, DEFAULT_POSITION, eased)
         controls.target.lerpVectors(INTRO_TARGET, DEFAULT_TARGET, eased)
         controls.update()
-      } else if (!introSettled.current) {
+      } else if (!introSettledRef.current) {
         camera.position.copy(DEFAULT_POSITION)
         controls.target.copy(DEFAULT_TARGET)
         controls.update()
-        introSettled.current = true
+        introSettledRef.current = true
       }
     }
 
-    if (animation.current) {
+    if (animationRef.current) {
       const alpha = 1 - Math.exp(-4.6 * Math.min(delta, 0.08))
-      camera.position.lerp(animation.current.position, alpha)
-      controls.target.lerp(animation.current.target, alpha)
+      camera.position.lerp(animationRef.current.position, alpha)
+      controls.target.lerp(animationRef.current.target, alpha)
       controls.update()
 
       if (
-        camera.position.distanceTo(animation.current.position) < 0.03 &&
-        controls.target.distanceTo(animation.current.target) < 0.03
+        camera.position.distanceTo(animationRef.current.position) < 0.03 &&
+        controls.target.distanceTo(animationRef.current.target) < 0.03
       ) {
-        camera.position.copy(animation.current.position)
-        controls.target.copy(animation.current.target)
+        camera.position.copy(animationRef.current.position)
+        controls.target.copy(animationRef.current.target)
         controls.update()
-        animation.current = null
+        animationRef.current = null
       }
       return
     }
@@ -146,12 +146,12 @@ function SceneContent({
   onReady,
 }: Omit<EcosystemSceneProps, 'reducedMotion'>) {
   const controlsRef = useRef<OrbitControlsImpl>(null)
-  const introCancelled = useRef(false)
-  const announced = useRef(false)
+  const introCancelledRef = useRef(false)
+  const announcedRef = useRef(false)
 
   useEffect(() => {
-    if (announced.current) return
-    announced.current = true
+    if (announcedRef.current) return
+    announcedRef.current = true
     onReady()
   }, [onReady])
 
@@ -172,7 +172,7 @@ function SceneContent({
         resetToken={resetToken}
         progress={progress}
         controlsRef={controlsRef}
-        introCancelled={introCancelled}
+        introCancelledRef={introCancelledRef}
         autoRotate={autoRotate}
       />
 
@@ -227,7 +227,7 @@ function SceneContent({
         autoRotate={autoRotate}
         autoRotateSpeed={0.32}
         onStart={() => {
-          introCancelled.current = true
+          introCancelledRef.current = true
         }}
       />
     </>

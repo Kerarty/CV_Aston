@@ -40,6 +40,8 @@ export function MainLayout() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })
     document.getElementById('main')?.focus({ preventScroll: true })
+    // Сброс мобильного меню при смене маршрута — намеренный синхронный setState.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMobileOpen(false)
   }, [pathname])
 

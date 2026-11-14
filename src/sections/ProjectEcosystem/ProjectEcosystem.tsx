@@ -152,6 +152,8 @@ export default function ProjectEcosystem() {
 
     if (reducedMotion) {
       progress.current.value = 1
+      // Настройка reduced-motion включилась во время интро — глушим его синхронно.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIntroDone(true)
       return
     }

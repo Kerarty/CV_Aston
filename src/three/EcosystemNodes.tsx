@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import { Line } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
@@ -543,7 +543,9 @@ export function GroundRings() {
 export function DataMotes() {
   const ref = useRef<THREE.Points>(null)
 
-  const positions = useMemo(() => {
+  // Случайные сиды генерируем один раз в инициализаторе состояния —
+  // Math.random в render-пути запрещён правилом react-hooks.
+  const [positions] = useState(() => {
     const values = new Float32Array(240 * 3)
     for (let index = 0; index < 240; index += 1) {
       const radius = 8 + Math.random() * 10
@@ -553,7 +555,7 @@ export function DataMotes() {
       values[index * 3 + 2] = Math.sin(angle) * radius
     }
     return values
-  }, [])
+  })
 
   useFrame((state) => {
     if (ref.current) ref.current.rotation.y = state.clock.elapsedTime * 0.012
