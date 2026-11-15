@@ -4,6 +4,8 @@
 
 **Позиционирование:** от технического мышления — к управлению IT-проектами.
 
+**Живая версия:** [kerarty.github.io/CV_Aston](https://kerarty.github.io/CV_Aston/)
+
 ---
 
 ## Скриншоты
@@ -74,6 +76,8 @@ npm run preview
 ```
 
 ## Публикация на GitHub Pages
+
+Сайт публикуется автоматически: каждый пуш в `main` проходит typecheck, ESLint и production-сборку, затем workflow публикует `dist`. Живая версия — [kerarty.github.io/CV_Aston](https://kerarty.github.io/CV_Aston/).
 
 В репозитории уже есть workflow `.github/workflows/deploy.yml`:
 
