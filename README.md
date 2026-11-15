@@ -6,6 +6,18 @@
 
 ---
 
+## Скриншоты
+
+| Command Center | Candidate Profile |
+| --- | --- |
+| ![Command Center — главный экран с картой проекта](docs/images/01-command-center.png) | ![Candidate Profile — профиль кандидата](docs/images/02-candidate-profile.png) |
+| **Project Archive** | **Management Lab** |
+| ![Project Archive — проектные досье](docs/images/03-project-archive.png) | ![Management Lab — симулятор решений](docs/images/04-management-lab.png) |
+| **Contact** | **3D Project Ecosystem** |
+| ![Contact — контакт-карточки с копированием email](docs/images/05-contact.png) | ![3D Ecosystem — интерактивная сцена](docs/images/06-ecosystem.png) |
+
+---
+
 ## Что внутри
 
 | № | Раздел | Содержание |
