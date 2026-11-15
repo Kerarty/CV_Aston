@@ -73,9 +73,4 @@ export const candidate = {
   cvUrl: 'cv/Yaroslav-Kukar-CV.pdf',
   englishLevel: null as string | null,
   availability: null as string | null,
-
-  disclaimer:
-    'Личное портфолио кандидата, созданное для отклика на программу развития менеджмента ASTON. Не является официальным продуктом компании ASTON.',
-  disclaimerEn:
-    'A personal candidate portfolio created for the ASTON management development programme application. Not an official product of ASTON.',
 } as const

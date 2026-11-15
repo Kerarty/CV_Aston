@@ -327,9 +327,6 @@ export function Contact() {
           </div>
           <div className="p-5 sm:p-6">
             <p className="text-pretty text-[12.5px] leading-relaxed text-[#b9c7d8]">{astonNote}</p>
-            <p className="mt-4 border-t border-line pt-3 text-[10px] leading-relaxed text-[#68809f]">
-              {candidate.disclaimer}
-            </p>
           </div>
         </div>
       </section>
