@@ -180,7 +180,11 @@ export function Contact() {
 
           <div className="mt-4 flex flex-wrap gap-2">
             {candidate.cvUrl ? (
-              <a href={candidate.cvUrl} download className={buttonClass('secondary')}>
+              <a
+                href={`${import.meta.env.BASE_URL}${candidate.cvUrl}`}
+                download
+                className={buttonClass('secondary')}
+              >
                 <Download size={14} aria-hidden="true" />
                 {t('Скачать CV', 'Download CV')}
               </a>

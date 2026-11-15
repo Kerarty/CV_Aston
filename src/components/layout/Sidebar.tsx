@@ -163,7 +163,7 @@ export function Sidebar({ collapsed, mobileOpen, onToggleCollapse, onCloseMobile
 
           {candidate.cvUrl ? (
             <a
-              href={candidate.cvUrl}
+              href={`${import.meta.env.BASE_URL}${candidate.cvUrl}`}
               download
               className={cn(
                 'flex min-h-[42px] items-center gap-2 border border-transparent px-2.5 text-[11px] text-muted no-underline transition-colors hover:border-line hover:bg-panel-2/45 hover:text-ink',

@@ -26,18 +26,20 @@ export const candidate = {
     institution: 'БГУИР',
     institutionFull: 'Белорусский государственный университет информатики и радиоэлектроники',
     programme: 'Информационные системы и технологии в игровой индустрии',
-    level: 'Магистратура',
+    level: 'Бакалавриат',
     course: '4-й курс',
     form: 'Дневная форма обучения',
+    years: '2023 – 2027',
   },
 
   educationEn: {
     institution: 'BSUIR',
     institutionFull: 'Belarusian State University of Informatics and Radioelectronics',
     programme: 'Information Systems and Technologies in the Game Industry',
-    level: "Master's degree",
+    level: "Bachelor's degree",
     course: '4th year',
     form: 'Full-time studies',
+    years: '2023 – 2027',
   },
 
   focus: ['Project Management', 'IT Operations', 'Business Analysis', 'Process Optimization', 'AI Tools', 'Team Coordination'],
@@ -68,7 +70,7 @@ export const candidate = {
     telegram: 'https://t.me/Kerarty',
   } satisfies CandidateContacts,
 
-  cvUrl: null as string | null,
+  cvUrl: 'cv/Yaroslav-Kukar-CV.pdf',
   englishLevel: null as string | null,
   availability: null as string | null,
 

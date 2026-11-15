@@ -1,6 +1,7 @@
 import { NavLink, useLocation } from 'react-router-dom'
-import { Home, Menu, MonitorPlay, X } from 'lucide-react'
+import { Download, Home, Menu, MonitorPlay, X } from 'lucide-react'
 import { getSectionByPath } from '@/app/navigation'
+import { candidate } from '@/data/candidate'
 import { Badge } from '@/components/ui/Badge'
 import { useLang, type Lang } from '@/i18n/language'
 import { cn } from '@/utils/cn'
@@ -87,6 +88,19 @@ export function Topbar({ onOpenMobile, presentation, onTogglePresentation }: Top
             <Badge variant="accent">Presentation</Badge>
           </span>
         )}
+
+        {candidate.cvUrl ? (
+          <a
+            href={`${import.meta.env.BASE_URL}${candidate.cvUrl}`}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="flex h-10 flex-none items-center gap-2 border border-accent/45 bg-accent/10 px-3 font-mono text-[10px] uppercase tracking-[0.12em] text-accent transition-colors hover:bg-accent/20"
+            title={t('Открыть CV в формате PDF', 'Open the CV as a PDF')}
+          >
+            <Download size={14} aria-hidden="true" />
+            <span className="hidden sm:inline">CV</span>
+          </a>
+        ) : null}
 
         <LangSwitch />
 

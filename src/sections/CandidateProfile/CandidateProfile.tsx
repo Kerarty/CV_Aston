@@ -158,6 +158,7 @@ export function CandidateProfile() {
               [t('Специальность', 'Major'), education.programme],
               [t('Уровень', 'Level'), education.level],
               [t('Курс', 'Year'), education.course],
+              [t('Годы', 'Years'), education.years],
               [t('Форма', 'Format'), education.form],
             ].map(([label, value]) => (
               <div key={label} className="grid grid-cols-[92px_minmax(0,1fr)] gap-3">
