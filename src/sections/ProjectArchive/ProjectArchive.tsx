@@ -262,15 +262,22 @@ export function ProjectArchive() {
             <Badge variant={selected.type === 'Diploma Project' ? 'accent' : 'muted'}>{selected.type}</Badge>
           </div>
 
-          <div className="relative h-[220px] border-b border-line bg-base/30 sm:h-[260px]">
+          <div className="relative h-[220px] overflow-hidden border-b border-line bg-base/30 sm:h-[260px]">
             {selected.image ? (
               <>
+                {/* Размытая копия заполняет контейнер цветами кадра, целое изображение поверх — не обрезается ни на каком экране. */}
+                <img
+                  src={`${import.meta.env.BASE_URL}${selected.image}`}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 h-full w-full scale-110 object-cover opacity-40 blur-2xl"
+                />
                 <img
                   src={`${import.meta.env.BASE_URL}${selected.image}`}
                   alt={t('Скриншот проекта', 'Project screenshot') + ' — ' + selected.name}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="relative h-full w-full object-contain"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#080d18]/90 via-[#080d18]/15 to-transparent" aria-hidden="true" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080d18]/88 via-transparent to-transparent" aria-hidden="true" />
               </>
             ) : (
               <ProjectGlyph glyph={selected.glyph} />

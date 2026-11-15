@@ -248,7 +248,7 @@ export const projects: Project[] = [
   },
   {
     id: 'exam-prep-bot',
-    index: '07',
+    index: '06',
     name: 'Exam Prep Bot',
     subtitle: 'Telegram-бот для подготовки к ЦЭ/ЦТ по биологии',
     type: 'Automation Project',
@@ -505,7 +505,7 @@ const projectsEn: Project[] = [
   },
   {
     id: 'exam-prep-bot',
-    index: '07',
+    index: '06',
     name: 'Exam Prep Bot',
     subtitle: 'A Telegram bot for biology exam preparation',
     type: 'Automation Project',
