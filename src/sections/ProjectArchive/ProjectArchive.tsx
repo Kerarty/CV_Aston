@@ -174,8 +174,8 @@ export function ProjectArchive() {
           </>
         }
         lead={t(
-          'Семь досье проектного опыта: дипломная работа, SDK и играбельная реклама, серия интерактивных резюме, сайты для заказчиков, бот автоматизации и учебные проекты.',
-          'Seven dossiers of project experience: a diploma project, an SDK and playable ads, a series of interactive CVs, client websites, an automation bot and academic projects.',
+          'Досье проектного опыта: дипломная работа, SDK и играбельная реклама, серия интерактивных резюме, бот автоматизации и учебные проекты.',
+          'Dossiers of project experience: a diploma project, an SDK and playable ads, a series of interactive CVs, an automation bot and academic projects.',
         )}
         meta={
           <div className="flex flex-wrap items-center gap-2">
@@ -263,7 +263,18 @@ export function ProjectArchive() {
           </div>
 
           <div className="relative h-[220px] border-b border-line bg-base/30 sm:h-[260px]">
-            <ProjectGlyph glyph={selected.glyph} />
+            {selected.image ? (
+              <>
+                <img
+                  src={`${import.meta.env.BASE_URL}${selected.image}`}
+                  alt={t('Скриншот проекта', 'Project screenshot') + ' — ' + selected.name}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#080d18]/90 via-[#080d18]/15 to-transparent" aria-hidden="true" />
+              </>
+            ) : (
+              <ProjectGlyph glyph={selected.glyph} />
+            )}
             <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between gap-4">
               <div>
                 <p className="font-mono text-[8.5px] uppercase tracking-[0.14em] text-[#7d91aa]">{t(selected.typeRu, selected.type)}</p>

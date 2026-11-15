@@ -1,6 +1,6 @@
 import type { Lang } from '@/i18n/language'
 
-export type ProjectGlyph = 'factory' | 'runner' | 'systems' | 'ads' | 'pipeline' | 'sites' | 'bot'
+export type ProjectGlyph = 'factory' | 'runner' | 'systems' | 'ads' | 'pipeline' | 'bot'
 
 export type ProjectDetails = {
   overview: string
@@ -22,6 +22,8 @@ export type Project = {
   description: string
   technologies: string[]
   glyph: ProjectGlyph
+  /** Реальный скриншот/кадр проекта — показывается в превью досье вместо глифа. */
+  image?: string
   links: {
     play?: string
     source?: string
@@ -42,6 +44,7 @@ export const projects: Project[] = [
       'Дипломный проект представляет собой игровую симуляцию управления производственным предприятием. В рамках проекта прорабатываются игровые механики, система заказов, производственные процессы, прогрессия, экономика и логика взаимодействия игровых систем.',
     technologies: ['Unity', 'C#', 'Game Design', 'AI-assisted Development'],
     glyph: 'factory',
+    image: 'images/projects/factory-management.jpg',
     links: { source: 'https://github.com/Kerarty/Diplom' },
     mediaNote: 'Скриншоты и демонстрационные материалы предоставляются по запросу.',
     details: {
@@ -85,6 +88,7 @@ export const projects: Project[] = [
       'Небольшой самостоятельный игровой прототип, созданный за несколько дней в процессе самостоятельного изучения инструментов разработки.',
     technologies: ['Game Development', 'Prototyping', 'Web Build'],
     glyph: 'runner',
+    image: 'images/projects/runner.jpg',
     links: {
       play: 'https://kerarty.github.io/runner/',
       source: 'https://github.com/Kerarty',
@@ -168,6 +172,7 @@ export const projects: Project[] = [
       'Движко-независимый SDK для HTML5 playable-рекламы с адаптерами под рекламные сети и две играбельные рекламы: логическая головоломка и crowd runner. Каждый проект уложен в один HTML-файл без сетевых запросов.',
     technologies: ['TypeScript', 'PixiJS 8', 'matter.js', 'SDK Architecture'],
     glyph: 'ads',
+    image: 'images/projects/playable-ads.jpg',
     links: {
       play: 'https://kerarty.github.io/splash-kitty-playable-ad/',
       source: 'https://github.com/Kerarty/playable-ads',
@@ -210,6 +215,7 @@ export const projects: Project[] = [
       'Серия интерактивных резюме для откликов на вакансии: 18 проектов, от резюме-платформера и баланс-лаборатории до тактической игры и резюме-смартфона. Каждый проект — отдельная концепция под конкретную компанию и требования.',
     technologies: ['HTML/CSS/JS', 'TypeScript', 'Three.js', 'PixiJS 8'],
     glyph: 'pipeline',
+    image: 'images/projects/cv-series.jpg',
     links: {
       source: 'https://github.com/Kerarty?tab=repositories',
     },
@@ -237,48 +243,6 @@ export const projects: Project[] = [
         'Повторяемый процесс важнее отдельного яркого результата.',
         'Требования заказчика определяют концепт, а не наоборот.',
         'Ограниченное время заставляет приоритизировать, а не улучшать бесконечно.',
-      ],
-    },
-  },
-  {
-    id: 'client-sites',
-    index: '06',
-    name: 'Client Websites',
-    subtitle: 'Сайты для реальных заказчиков из Светлогорска',
-    type: 'Client Projects',
-    typeRu: 'Проекты для заказчиков',
-    description:
-      'Прототипы сайтов для внешних заказчиков: магазин автохимии «Проблеск» и барбершоп «Атаман». Первый опыт коммуникации не с платформой или вакансией, а с заказчиком, у которого свои задачи, бюджет и язык.',
-    technologies: ['HTML/CSS/JS', 'JavaScript', 'Prototyping', 'Project Planning'],
-    glyph: 'sites',
-    links: {
-      play: 'https://kerarty.github.io/problesk-site/',
-      source: 'https://github.com/Kerarty/Ataman_Sait',
-    },
-    details: {
-      overview:
-        'Два проекта с реальными заказчиками: сайт магазина автохимии и детейлинга и сайт барбершопа. Для обоих подготовлены прототипы и планы дальнейшей работы.',
-      objective:
-        'Пройти цикл работы с внешним заказчиком: понять бизнес-задачу, согласовать ожидания, собрать требования и предложить понятный план реализации.',
-      contribution: [
-        'Обсуждал задачи с заказчиками и переводил их в требования к сайту.',
-        'Подготовил прототип дизайна и структуру страниц.',
-        'Составил план проекта с этапами и ожидаемыми результатами.',
-        'Опубликовал прототипы для обсуждения вместо описаний «на словах».',
-      ],
-      tools: ['Коммуникация с заказчиком', 'Сбор требований', 'HTML/CSS/JS', 'Прототипирование'],
-      workflow: [
-        'Разговор с заказчиком: бизнес, клиенты, что должен делать сайт.',
-        'Формулирование требований и границ первого этапа.',
-        'Прототип дизайна и ключевая функциональность.',
-        'Публикация прототипа и сбор обратной связи.',
-      ],
-      outcome:
-        'Опубликованные прототипы и согласованные планы следующих этапов. Проекты остаются в начальной стадии — это честно зафиксировано.',
-      lessons: [
-        'Заказчик говорит о бизнесе, а не о требованиях — переводить в требования приходится самому.',
-        'Показать прототип эффективнее, чем описывать идею текстом.',
-        'Фиксировать границы этапа важно и в маленьких проектах.',
       ],
     },
   },
@@ -337,6 +301,7 @@ const projectsEn: Project[] = [
       'A diploma project: a game simulation of managing a production facility. It covers game mechanics, an order system, production processes, progression, economy and the logic that connects the game systems together.',
     technologies: ['Unity', 'C#', 'Game Design', 'AI-assisted Development'],
     glyph: 'factory',
+    image: 'images/projects/factory-management.jpg',
     links: { source: 'https://github.com/Kerarty/Diplom' },
     mediaNote: 'Screenshots and demo materials are available on request.',
     details: {
@@ -380,6 +345,7 @@ const projectsEn: Project[] = [
       'A small self-driven game prototype built over a few days while learning the development tooling on my own.',
     technologies: ['Game Development', 'Prototyping', 'Web Build'],
     glyph: 'runner',
+    image: 'images/projects/runner.jpg',
     links: {
       play: 'https://kerarty.github.io/runner/',
       source: 'https://github.com/Kerarty',
@@ -463,6 +429,7 @@ const projectsEn: Project[] = [
       'An engine-independent SDK for HTML5 playable ads with adapters for ad networks, plus two playable ads: a logic puzzle and a crowd runner. Each ad fits into a single HTML file with zero network requests.',
     technologies: ['TypeScript', 'PixiJS 8', 'matter.js', 'SDK Architecture'],
     glyph: 'ads',
+    image: 'images/projects/playable-ads.jpg',
     links: {
       play: 'https://kerarty.github.io/splash-kitty-playable-ad/',
       source: 'https://github.com/Kerarty/playable-ads',
@@ -505,6 +472,7 @@ const projectsEn: Project[] = [
       'A series of interactive CVs built for job applications: 18 projects, from a CV-platformer and a balance lab to a tactics game and a CV-as-smartphone. Every project is a separate concept tailored to a specific company and its requirements.',
     technologies: ['HTML/CSS/JS', 'TypeScript', 'Three.js', 'PixiJS 8'],
     glyph: 'pipeline',
+    image: 'images/projects/cv-series.jpg',
     links: {
       source: 'https://github.com/Kerarty?tab=repositories',
     },
@@ -532,48 +500,6 @@ const projectsEn: Project[] = [
         'A repeatable process matters more than a single bright result.',
         'Customer requirements shape the concept, not the other way around.',
         'Limited time forces prioritization instead of endless improvement.',
-      ],
-    },
-  },
-  {
-    id: 'client-sites',
-    index: '06',
-    name: 'Client Websites',
-    subtitle: 'Websites for real clients from Svetlogorsk',
-    type: 'Client Projects',
-    typeRu: 'Проекты для заказчиков',
-    description:
-      'Website prototypes for external clients: an auto-chemistry store (Problesk) and a barbershop (Ataman). My first experience communicating not with a platform or a vacancy, but with a client who has their own goals, budget and language.',
-    technologies: ['HTML/CSS/JS', 'JavaScript', 'Prototyping', 'Project Planning'],
-    glyph: 'sites',
-    links: {
-      play: 'https://kerarty.github.io/problesk-site/',
-      source: 'https://github.com/Kerarty/Ataman_Sait',
-    },
-    details: {
-      overview:
-        'Two projects with real clients: a website for an auto-chemistry and detailing store and a website for a barbershop. For both, prototypes and plans for further work were prepared.',
-      objective:
-        'Go through the cycle of working with an external client: understand the business goal, align expectations, gather requirements and propose a clear implementation plan.',
-      contribution: [
-        'Discussed the goals with the clients and translated them into website requirements.',
-        'Prepared design prototypes and the page structure.',
-        'Wrote a project plan with stages and expected results.',
-        'Published prototypes for discussion instead of describing ideas in words.',
-      ],
-      tools: ['Client communication', 'Requirements gathering', 'HTML/CSS/JS', 'Prototyping'],
-      workflow: [
-        'A conversation with the client: the business, the customers, what the site must do.',
-        'Formulating requirements and the boundaries of the first stage.',
-        'Design prototype and the key functionality.',
-        'Publishing the prototype and collecting feedback.',
-      ],
-      outcome:
-        'Published prototypes and agreed plans for the next stages. The projects remain at an early stage — this is honestly recorded.',
-      lessons: [
-        'A client speaks about their business, not about requirements — translating is your job.',
-        'Showing a prototype is more effective than describing an idea in text.',
-        'Recording stage boundaries matters in small projects too.',
       ],
     },
   },

@@ -180,39 +180,6 @@ export function ProjectGlyph({ glyph, className }: { glyph: GlyphType; className
         </g>
       ) : null}
 
-      {glyph === 'sites' ? (
-        <g>
-          <g stroke="#3D5B7E" strokeWidth="1.2">
-            <path d="M60 60h180v120H60z" />
-            <path d="M60 82h180" />
-            <circle cx="72" cy="71" r="3" />
-            <circle cx="82" cy="71" r="3" />
-            <path d="M92 71h60" />
-          </g>
-          <g stroke="#478CFF" strokeWidth="1.2">
-            <path d="M70 94h160M70 112h100M70 128h130" opacity="0.85" />
-            <path d="M170 96h60v44h-60z" fill="none" />
-          </g>
-          <g stroke="#3D5B7E" strokeWidth="1.2">
-            <path d="M240 100h120v92H240z" fill="#0D1523" />
-            <path d="M240 118h120" />
-            <circle cx="252" cy="109" r="2.6" />
-          </g>
-          <g stroke="#32D6C5" strokeWidth="0.9" opacity="0.85">
-            <path d="M252 130h96M252 142h70M252 154h84" />
-          </g>
-          <g fill="#32D6C5">
-            <circle cx="360" cy="88" r="2.6" />
-            <rect x="84" y="164" width="5" height="5" />
-          </g>
-          <g fill="#8C9AAF" fontFamily="JetBrains Mono, monospace" fontSize="7" letterSpacing="1">
-            <text x="60" y="212">CLIENT BRIEF → REQUIREMENTS → PROTOTYPE</text>
-          </g>
-          <text x="300" y="60" fill="#8C9AAF" fontFamily="JetBrains Mono, monospace" fontSize="7" letterSpacing="1">FEEDBACK LOOP</text>
-          <path d="M300 66v14" stroke="#3D5B7E" strokeWidth="0.8" strokeDasharray="2 4" />
-        </g>
-      ) : null}
-
       {glyph === 'bot' ? (
         <g>
           <g stroke="#3D5B7E" strokeWidth="1.2">

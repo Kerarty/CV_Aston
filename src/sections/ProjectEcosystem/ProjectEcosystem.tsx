@@ -135,8 +135,8 @@ const layers: Array<{ index: string; label: string; name: LocalText; text: Local
     label: 'PORTFOLIO ISLAND',
     name: { ru: 'Проекты', en: 'The projects' },
     text: {
-      ru: 'От дипломной работы и SDK до клиентских сайтов и ботa автоматизации.',
-      en: 'From the diploma project and an SDK to client sites and an automation bot.',
+      ru: 'От дипломной работы и SDK до ботa автоматизации.',
+      en: 'From the diploma project and an SDK to an automation bot.',
     },
   },
 ]
