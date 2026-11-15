@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { sections } from '@/app/navigation'
+import { useLang } from '@/i18n/language'
 import { cn } from '@/utils/cn'
 
 const CENTER = 310
@@ -18,6 +19,7 @@ function polar(index: number, total: number, radius: number) {
 export function SystemMap() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
+  const { lang, t } = useLang()
   const [activeId, setActiveId] = useState<string | null>(null)
   const active = sections.find((section) => section.id === activeId) ?? null
 
@@ -52,7 +54,10 @@ export function SystemMap() {
           viewBox="0 0 620 620"
           className="relative mx-auto hidden w-full max-w-[560px] md:block"
           role="group"
-          aria-label="Интерактивная карта восьми разделов PROJECT ZERO"
+          aria-label={t(
+            'Интерактивная карта восьми разделов PROJECT ZERO',
+            'Interactive map of the eight PROJECT ZERO sections',
+          )}
         >
           <defs>
             <radialGradient id="core-glow" cx="50%" cy="50%" r="50%">
@@ -224,7 +229,9 @@ export function SystemMap() {
               {active ? `${active.number} / ${active.label}` : 'Select a module'}
             </p>
             <p className="mt-1 truncate text-[12px] text-muted">
-              {active ? active.description : 'Наведите на узел карты или откройте раздел в меню.'}
+              {active
+                ? active.description[lang]
+                : t('Наведите на узел карты или откройте раздел в меню.', 'Hover over a map node or open a section in the menu.')}
             </p>
           </div>
           {active ? (
@@ -233,7 +240,7 @@ export function SystemMap() {
               className={cn(
                 'flex h-10 w-10 flex-none items-center justify-center border border-accent/45 bg-accent/10 text-accent transition-colors hover:bg-accent hover:text-[#04101F]',
               )}
-              aria-label={`Открыть раздел ${active.label}`}
+              aria-label={`${t('Открыть раздел', 'Open section')} ${active.label}`}
             >
               <ArrowUpRight size={16} aria-hidden="true" />
             </Link>

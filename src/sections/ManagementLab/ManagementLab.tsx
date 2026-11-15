@@ -11,10 +11,14 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { PageFooterNav } from '@/components/ui/PageFooterNav'
 import { SectionHeader } from '@/components/ui/SectionHeader'
-import { decisionPrinciples, scenarios } from '@/data/scenarios'
+import { getDecisionPrinciples, getScenarios } from '@/data/scenarios'
+import { useLang } from '@/i18n/language'
 import { cn } from '@/utils/cn'
 
 export function ManagementLab() {
+  const { lang, t } = useLang()
+  const scenarios = getScenarios(lang)
+  const decisionPrinciples = getDecisionPrinciples(lang)
   const [activeIndex, setActiveIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [showSummary, setShowSummary] = useState(false)
@@ -63,7 +67,10 @@ export function ManagementLab() {
             <span className="text-[#91a5bf]">MAKING LAB.</span>
           </>
         }
-        lead="Небольшая образовательная симуляция: три управленческие ситуации и выбор подхода к каждой из них."
+        lead={t(
+          'Небольшая образовательная симуляция: три управленческие ситуации и выбор подхода к каждой из них.',
+          'A small educational simulation: three management situations and a choice of approach for each.',
+        )}
         meta={
           <div className="flex flex-wrap gap-2">
             <Badge variant="warning">Educational simulation</Badge>
@@ -92,8 +99,10 @@ export function ManagementLab() {
                   PRINCIPLES.
                 </h2>
                 <p className="mt-5 max-w-md text-pretty text-[13px] leading-relaxed text-[#c0ccda]">
-                  Симуляция не оценивает компетенции и не присваивает рейтинг. Её задача — показать, как я
-                  структурирую управленческие ситуации и какие принципы считаю важными.
+                  {t(
+                    'Симуляция не оценивает компетенции и не присваивает рейтинг. Её задача — показать, как я структурирую управленческие ситуации и какие принципы считаю важными.',
+                    'The simulation does not assess competencies or assign a score. Its purpose is to show how I structure management situations and which principles I consider important.',
+                  )}
                 </p>
                 <div className="mt-6 flex flex-wrap gap-2">
                   <Badge variant="teal">03 / 03 explored</Badge>
@@ -101,7 +110,7 @@ export function ManagementLab() {
                 </div>
                 <Button variant="primary" onClick={restartAll} className="mt-7">
                   <RotateCcw size={14} aria-hidden="true" />
-                  Пройти заново
+                  {t('Пройти заново', 'Run it again')}
                 </Button>
               </div>
             </div>
@@ -119,7 +128,10 @@ export function ManagementLab() {
                 ))}
               </ol>
               <p className="mt-5 border-t border-line pt-4 text-[10.5px] leading-relaxed text-[#6e86a5]">
-                Это демонстрационная образовательная симуляция, а не оценка реальных управленческих компетенций.
+                {t(
+                  'Это демонстрационная образовательная симуляция, а не оценка реальных управленческих компетенций.',
+                  'This is a demonstration educational simulation, not an assessment of real management competencies.',
+                )}
               </p>
             </div>
           </div>
@@ -133,7 +145,7 @@ export function ManagementLab() {
                 <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">{answeredCount} / 03</span>
               </div>
               <h2 id="scenario-index-heading" className="mt-1 font-display text-lg font-semibold tracking-[-0.02em]">
-                Ситуации
+                {t('Ситуации', 'Situations')}
               </h2>
             </div>
 
@@ -192,11 +204,14 @@ export function ManagementLab() {
                 )}
               >
                 <span className="font-mono text-[9px]">04</span>
-                <span className="flex-1 text-[11px] font-medium">Итог симуляции</span>
+                <span className="flex-1 text-[11px] font-medium">{t('Итог симуляции', 'Simulation summary')}</span>
                 <ArrowRight size={13} aria-hidden="true" />
               </button>
               <p className="mt-3 px-1 text-[10px] leading-relaxed text-[#68809f]">
-                Сценарии можно проходить в любом порядке. Ответ можно изменить до перехода к итогу.
+                {t(
+                  'Сценарии можно проходить в любом порядке. Ответ можно изменить до перехода к итогу.',
+                  'Scenarios can be explored in any order. Answers can be changed until you open the summary.',
+                )}
               </p>
             </div>
           </aside>
@@ -330,7 +345,9 @@ export function ManagementLab() {
                 </div>
               ) : (
                 <div className="mt-6 flex items-center justify-between gap-4 border-t border-line pt-5">
-                  <p className="text-[11px] text-[#6e86a5]">Выберите один из подходов, чтобы увидеть разбор последствий.</p>
+                  <p className="text-[11px] text-[#6e86a5]">
+                    {t('Выберите один из подходов, чтобы увидеть разбор последствий.', 'Choose one of the approaches to see the breakdown of consequences.')}
+                  </p>
                   <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#647e9e]">
                     {answeredCount} / 03 answered
                   </span>

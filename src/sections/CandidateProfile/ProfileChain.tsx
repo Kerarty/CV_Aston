@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
+import { useLang } from '@/i18n/language'
 import { cn } from '@/utils/cn'
 
-const stages = [
+const stagesRu = [
   {
     id: 'technology',
     name: 'Technology',
@@ -40,7 +41,47 @@ const stages = [
   },
 ]
 
+const stagesEn = [
+  {
+    id: 'technology',
+    name: 'Technology',
+    index: '01',
+    description:
+      'Understanding the technical side of IT: how development works, what constraints technologies have and what stands behind a task.',
+  },
+  {
+    id: 'analysis',
+    name: 'Analysis',
+    index: '02',
+    description:
+      'Analysing tasks and structuring information: highlight what matters, formulate the questions and break the work into parts.',
+  },
+  {
+    id: 'organization',
+    name: 'Organization',
+    index: '03',
+    description:
+      'Organizing work and interaction: agree on roles, the sequence of steps and the point of result.',
+  },
+  {
+    id: 'execution',
+    name: 'Execution',
+    index: '04',
+    description:
+      'Moving from idea to implementation: keep the focus, verify intermediate results and carry the work to a working version.',
+  },
+  {
+    id: 'result',
+    name: 'Result',
+    index: '05',
+    description:
+      'Verifying the result and analyzing the work: what succeeded, what to change and what to carry into the next cycle.',
+  },
+]
+
 export function ProfileChain() {
+  const { lang, t } = useLang()
+  const stages = lang === 'en' ? stagesEn : stagesRu
   const [activeId, setActiveId] = useState(stages[0].id)
   const active = stages.find((stage) => stage.id === activeId) ?? stages[0]
 
@@ -50,7 +91,7 @@ export function ProfileChain() {
         <div>
           <p className="mono-label">Thinking pipeline</p>
           <h2 id="pipeline-heading" className="mt-1 font-display text-lg font-semibold tracking-[-0.02em]">
-            От технологии к результату
+            {t('От технологии к результату', 'From technology to result')}
           </h2>
         </div>
         <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#68809f]">
@@ -59,7 +100,7 @@ export function ProfileChain() {
       </div>
 
       <div className="px-5 py-6 sm:px-6">
-        <div className="hidden items-center md:flex" role="tablist" aria-label="Этапы мышления">
+        <div className="hidden items-center md:flex" role="tablist" aria-label={t('Этапы мышления', 'Thinking stages')}>
           {stages.map((stage, index) => {
             const isActive = stage.id === activeId
             return (
@@ -92,7 +133,7 @@ export function ProfileChain() {
           })}
         </div>
 
-        <div className="grid gap-2 md:hidden" role="tablist" aria-label="Этапы мышления">
+        <div className="grid gap-2 md:hidden" role="tablist" aria-label={t('Этапы мышления', 'Thinking stages')}>
           {stages.map((stage) => {
             const isActive = stage.id === activeId
             return (

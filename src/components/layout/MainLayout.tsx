@@ -4,19 +4,23 @@ import { AnimatePresence } from 'framer-motion'
 import { Github } from 'lucide-react'
 import { getSectionByPath, getAdjacentSection } from '@/app/navigation'
 import { candidate } from '@/data/candidate'
+import { useLang } from '@/i18n/language'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Topbar } from '@/components/layout/Topbar'
 import { PresentationMode } from '@/components/layout/PresentationMode'
 import { PageTransition } from '@/components/animation/PageTransition'
 
 function RouteFallback() {
+  const { t } = useLang()
   return (
     <div className="page-shell page-top">
       <div className="panel flex min-h-[360px] items-center justify-center p-8">
         <div className="text-center">
           <span className="status-dot pulse-dot mx-auto block" aria-hidden="true" />
           <p className="mono-label mt-4">Loading environment</p>
-          <p className="mt-2 text-sm text-muted">Подготавливаем 3D-экосистему…</p>
+          <p className="mt-2 text-sm text-muted">
+            {t('Подготавливаем 3D-экосистему…', 'Preparing the 3D ecosystem…')}
+          </p>
         </div>
       </div>
     </div>
@@ -27,6 +31,7 @@ export function MainLayout() {
   const { pathname } = useLocation()
   const outlet = useOutlet()
   const navigate = useNavigate()
+  const { t } = useLang()
   const [collapsed, setCollapsed] = useState(() => {
     try {
       return window.localStorage.getItem('pz-sidebar-collapsed') === '1'
@@ -113,7 +118,7 @@ export function MainLayout() {
         href="#main"
         className="fixed left-3 top-3 z-[100] -translate-y-24 border border-accent bg-panel px-4 py-3 font-mono text-[11px] uppercase tracking-[0.12em] text-ink transition-transform focus:translate-y-0"
       >
-        Перейти к содержимому
+        {t('Перейти к содержимому', 'Skip to content')}
       </a>
 
       {!presentation ? (
@@ -130,7 +135,7 @@ export function MainLayout() {
           type="button"
           className="fixed inset-0 z-40 bg-[#040811]/70 backdrop-blur-[2px] lg:hidden"
           onClick={() => setMobileOpen(false)}
-          aria-label="Закрыть меню"
+          aria-label={t('Закрыть меню', 'Close menu')}
         />
       ) : null}
 
@@ -156,7 +161,7 @@ export function MainLayout() {
           <footer className="border-t border-line/80 px-4 py-5 sm:px-6">
             <div className="mx-auto flex max-w-[1560px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#5e7696]">
-                Project Zero · Personal portfolio · {getSectionByPath(pathname).number} / 09
+                Project Zero · {t('Personal portfolio', 'Личное портфолио')} · {getSectionByPath(pathname).number} / 09
               </p>
               <div className="flex items-center gap-4">
                 <p className="text-[11px] text-[#6f84a1]">

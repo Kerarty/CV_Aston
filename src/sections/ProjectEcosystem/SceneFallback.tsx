@@ -1,6 +1,7 @@
 import type { KeyboardEvent } from 'react'
 import type { EcosystemNodeId } from '@/data/ecosystem'
-import { moduleNodes } from '@/data/ecosystem'
+import { getModuleNodes } from '@/data/ecosystem'
+import { useLang } from '@/i18n/language'
 
 const positions: Record<string, { x: number; y: number }> = {
   delivery: { x: 168, y: 104 },
@@ -23,6 +24,8 @@ type SceneFallbackProps = {
 }
 
 export function SceneFallback({ selected, onSelect, reason }: SceneFallbackProps) {
+  const { lang, t } = useLang()
+  const moduleNodes = getModuleNodes(lang)
   const activate = (event: KeyboardEvent<SVGGElement>, id: EcosystemNodeId) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
@@ -37,7 +40,12 @@ export function SceneFallback({ selected, onSelect, reason }: SceneFallbackProps
         <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">2D fallback</p>
       </div>
 
-      <svg viewBox="0 0 600 500" className="h-full w-full" role="group" aria-label="Схема экосистемы PROJECT ZERO">
+      <svg
+        viewBox="0 0 600 500"
+        className="h-full w-full"
+        role="group"
+        aria-label={t('Схема экосистемы PROJECT ZERO', 'PROJECT ZERO ecosystem schematic')}
+      >
         <defs>
           <pattern id="fallback-grid" width="30" height="30" patternUnits="userSpaceOnUse">
             <path d="M30 0H0V30" fill="none" stroke="#27364B" strokeWidth="0.6" opacity="0.35" />
@@ -83,7 +91,7 @@ export function SceneFallback({ selected, onSelect, reason }: SceneFallbackProps
         <g
           role="button"
           tabIndex={0}
-          aria-label="Ядро PROJECT ZERO"
+          aria-label={t('Ядро PROJECT ZERO', 'PROJECT ZERO core')}
           className="cursor-pointer"
           onClick={() => onSelect('core')}
           onKeyDown={(event) => activate(event, 'core')}
@@ -155,7 +163,7 @@ export function SceneFallback({ selected, onSelect, reason }: SceneFallbackProps
         <g
           role="button"
           tabIndex={0}
-          aria-label="PORTFOLIO ISLAND — портфолио проектов"
+          aria-label={t('PORTFOLIO ISLAND — портфолио проектов', 'PORTFOLIO ISLAND — the project portfolio')}
           className="cursor-pointer"
           onClick={() => onSelect('island')}
           onKeyDown={(event) => activate(event, 'island')}
@@ -195,7 +203,10 @@ export function SceneFallback({ selected, onSelect, reason }: SceneFallbackProps
       </svg>
 
       <p className="absolute inset-x-0 bottom-0 z-10 border-t border-line/60 px-4 py-3 text-center text-[10.5px] leading-relaxed text-[#6e86a5]">
-        {reason ?? 'WebGL недоступен на этом устройстве. Схема сохраняет навигацию и содержание раздела.'}
+        {reason ?? t(
+          'WebGL недоступен на этом устройстве. Схема сохраняет навигацию и содержание раздела.',
+          'WebGL is not available on this device. The schematic keeps the navigation and content of the section.',
+        )}
       </p>
     </div>
   )

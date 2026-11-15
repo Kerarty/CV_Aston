@@ -1,4 +1,5 @@
 import type { LucideIcon } from 'lucide-react'
+import type { LocalText } from '@/i18n/language'
 import {
   Boxes,
   BriefcaseBusiness,
@@ -17,7 +18,7 @@ export type Section = {
   label: string
   ru: string
   title: string
-  description: string
+  description: LocalText
   icon: LucideIcon
 }
 
@@ -29,7 +30,10 @@ export const sections: Section[] = [
     label: 'Command Center',
     ru: 'Центр управления',
     title: 'Command Center',
-    description: 'Главный экран и карта проекта',
+    description: {
+      ru: 'Главный экран и карта проекта',
+      en: 'Home screen and project map',
+    },
     icon: LayoutDashboard,
   },
   {
@@ -39,7 +43,10 @@ export const sections: Section[] = [
     label: 'Candidate Profile',
     ru: 'Профиль кандидата',
     title: 'Candidate Profile',
-    description: 'Образование, интересы и подход',
+    description: {
+      ru: 'Образование, интересы и подход',
+      en: 'Education, interests and approach',
+    },
     icon: UserRound,
   },
   {
@@ -49,7 +56,10 @@ export const sections: Section[] = [
     label: 'Leadership',
     ru: 'Лидерский опыт',
     title: 'Leadership',
-    description: 'Организация и координация',
+    description: {
+      ru: 'Организация и координация',
+      en: 'Organization and coordination',
+    },
     icon: Flag,
   },
   {
@@ -59,7 +69,10 @@ export const sections: Section[] = [
     label: 'Project Archive',
     ru: 'Архив проектов',
     title: 'Project Archive',
-    description: 'Проектные досье',
+    description: {
+      ru: 'Проектные досье',
+      en: 'Project dossiers',
+    },
     icon: FolderArchive,
   },
   {
@@ -69,7 +82,10 @@ export const sections: Section[] = [
     label: 'Management Lab',
     ru: 'Лаборатория решений',
     title: 'Management Lab',
-    description: 'Симулятор принятия решений',
+    description: {
+      ru: 'Симулятор принятия решений',
+      en: 'Decision-making simulator',
+    },
     icon: FlaskConical,
   },
   {
@@ -79,7 +95,10 @@ export const sections: Section[] = [
     label: 'Executive Workspace',
     ru: 'Рабочие инструменты',
     title: 'Executive Workspace',
-    description: 'Технологии и организация работы',
+    description: {
+      ru: 'Технологии и организация работы',
+      en: 'Tools and working practices',
+    },
     icon: BriefcaseBusiness,
   },
   {
@@ -89,7 +108,10 @@ export const sections: Section[] = [
     label: 'ASTON Integration',
     ru: 'Направления ASTON',
     title: 'ASTON Integration',
-    description: 'Соответствие направлениям программы',
+    description: {
+      ru: 'Соответствие направлениям программы',
+      en: 'Fit with the programme directions',
+    },
     icon: Target,
   },
   {
@@ -99,7 +121,10 @@ export const sections: Section[] = [
     label: '3D Project Ecosystem',
     ru: '3D-экосистема',
     title: '3D Project Ecosystem',
-    description: 'Пространственная модель проектов',
+    description: {
+      ru: 'Пространственная модель проектов',
+      en: 'Spatial model of the portfolio',
+    },
     icon: Boxes,
   },
 ]
@@ -111,7 +136,10 @@ export const contactSection: Section = {
   label: 'Contact',
   ru: 'Контакты',
   title: 'Final Message',
-  description: 'Финальный экран и контакты',
+  description: {
+    ru: 'Финальный экран и контакты',
+    en: 'Final screen and contacts',
+  },
   icon: Flag,
 }
 

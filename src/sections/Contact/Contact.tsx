@@ -16,11 +16,15 @@ import { PageFooterNav } from '@/components/ui/PageFooterNav'
 import { buttonClass } from '@/components/ui/Button'
 import { LogoMark } from '@/components/ui/LogoMark'
 import { candidate } from '@/data/candidate'
-import { astonNote } from '@/data/astonDirections'
-import { projects } from '@/data/projects'
+import { getAstonNote } from '@/data/astonDirections'
+import { getProjects } from '@/data/projects'
+import { useLang } from '@/i18n/language'
 import { cn } from '@/utils/cn'
 
 export function Contact() {
+  const { lang, t } = useLang()
+  const astonNote = getAstonNote(lang)
+  const projects = getProjects(lang)
   const { email, telegram } = candidate.contacts
   const directContacts = Boolean(email || telegram)
   const [emailCopied, setEmailCopied] = useState(false)
@@ -70,18 +74,22 @@ export function Contact() {
 
           <div className="mt-8 max-w-2xl space-y-4 text-pretty text-[13.5px] leading-relaxed text-[#b9c7d8] sm:text-[14.5px]">
             <p>
-              Спасибо, что дошли до финального экрана. PROJECT ZERO — это не заявление о готовом опыте, а попытка
-              показать, как я думаю, учусь и организую работу.
+              {t(
+                'Спасибо, что дошли до финального экрана. PROJECT ZERO — это не заявление о готовом опыте, а попытка показать, как я думаю, учусь и организую работу.',
+                'Thank you for reaching the final screen. PROJECT ZERO is not a claim of finished expertise — it is an attempt to show how I think, learn and organize work.',
+              )}
             </p>
             <p>
-              Мне интересно строить системы, в которых технологии и люди работают в одном направлении. ASTON для меня —
-              возможность проверить этот интерес в реальной управленческой среде и начать профессиональный путь в IT.
+              {t(
+                'Мне интересно строить системы, в которых технологии и люди работают в одном направлении. ASTON для меня — возможность проверить этот интерес в реальной управленческой среде и начать профессиональный путь в IT.',
+                'I am interested in building systems where technology and people move in the same direction. For me, ASTON is a chance to test that interest in a real management environment and start a professional path in IT.',
+              )}
             </p>
           </div>
 
           <blockquote className="mt-8 max-w-xl border-l-2 border-accent pl-5">
             <p className="font-display text-[clamp(1.15rem,2vw,1.45rem)] font-medium leading-snug tracking-[-0.02em] text-ink">
-              «{candidate.goal}»
+              «{t(candidate.goal, candidate.goalEn)}»
             </p>
             <footer className="mt-3 font-mono text-[9px] uppercase tracking-[0.14em] text-muted">
               Professional goal / 2026
@@ -90,7 +98,7 @@ export function Contact() {
 
           <div
             className="mt-8 grid max-w-2xl gap-px border border-line bg-line sm:grid-cols-2"
-            aria-label="Способы связаться"
+            aria-label={t('Способы связаться', 'Ways to get in touch')}
           >
             {email ? (
               <div className="flex items-center gap-3.5 bg-panel/70 p-4 sm:col-span-2">
@@ -118,7 +126,7 @@ export function Contact() {
                   )}
                 >
                   {emailCopied ? <Check size={13} aria-hidden="true" /> : <Copy size={13} aria-hidden="true" />}
-                  {emailCopied ? 'Скопировано' : 'Копировать'}
+                  {emailCopied ? t('Скопировано', 'Copied') : t('Копировать', 'Copy')}
                 </button>
               </div>
             ) : null}
@@ -174,7 +182,7 @@ export function Contact() {
             {candidate.cvUrl ? (
               <a href={candidate.cvUrl} download className={buttonClass('secondary')}>
                 <Download size={14} aria-hidden="true" />
-                Скачать CV
+                {t('Скачать CV', 'Download CV')}
               </a>
             ) : null}
 
@@ -186,7 +194,10 @@ export function Contact() {
 
           {!directContacts ? (
             <p className="mt-4 max-w-lg text-[10.5px] leading-relaxed text-[#6e86a5]">
-              Прямые контакты (email и Telegram) не опубликованы в этой версии. Связаться можно через GitHub.
+              {t(
+                'Прямые контакты (email и Telegram) не опубликованы в этой версии. Связаться можно через GitHub.',
+                'Direct contacts (email and Telegram) are not published in this version. Reach out via GitHub.',
+              )}
             </p>
           ) : null}
         </section>
@@ -284,7 +295,7 @@ export function Contact() {
             <div className="min-w-0">
               <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#6f86a3]">Portfolio / 2026</p>
               <p className="mt-1 truncate text-[11px] text-[#9fb0c5]">
-                {projects.length} проекта · {candidate.education.institution} · {candidate.programme}
+                {projects.length} {t('проекта', 'projects')} · {lang === 'en' ? candidate.educationEn.institution : candidate.education.institution} · {lang === 'en' ? candidate.programmeEn : candidate.programme}
               </p>
             </div>
           </div>
@@ -304,7 +315,10 @@ export function Contact() {
               OPERATIONS.
             </h2>
             <p className="mt-3 text-[11.5px] leading-relaxed text-[#7d91aa]">
-              Начальный фокус внутри программы — при сохранении открытости к остальным направлениям.
+              {t(
+                'Начальный фокус внутри программы — при сохранении открытости к остальным направлениям.',
+                'The initial focus within the programme — while staying open to the other directions.',
+              )}
             </p>
           </div>
           <div className="p-5 sm:p-6">

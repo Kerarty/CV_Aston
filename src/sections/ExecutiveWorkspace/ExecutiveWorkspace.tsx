@@ -4,14 +4,15 @@ import { Badge } from '@/components/ui/Badge'
 import { PageFooterNav } from '@/components/ui/PageFooterNav'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import {
-  aiMessages,
-  aiTools,
-  aiWorkflow,
-  documentationTools,
-  planningSteps,
-  skillGroups,
+  getAiMessages,
+  getAiTools,
+  getAiWorkflow,
+  getDocumentationTools,
+  getPlanningSteps,
+  getSkillGroups,
   type SkillTool,
 } from '@/data/skills'
+import { useLang } from '@/i18n/language'
 import { cn } from '@/utils/cn'
 
 function ToolDetail({ tool, category }: { tool: SkillTool; category: string }) {
@@ -36,6 +37,13 @@ function ToolDetail({ tool, category }: { tool: SkillTool; category: string }) {
 }
 
 export function ExecutiveWorkspace() {
+  const { lang, t } = useLang()
+  const planningSteps = getPlanningSteps(lang)
+  const skillGroups = getSkillGroups(lang)
+  const aiMessages = getAiMessages(lang)
+  const aiTools = getAiTools(lang)
+  const aiWorkflow = getAiWorkflow(lang)
+  const documentationTools = getDocumentationTools(lang)
   const [selected, setSelected] = useState<{ tool: SkillTool; category: string }>({
     tool: skillGroups[0].tools[1],
     category: skillGroups[0].title,
@@ -53,7 +61,10 @@ export function ExecutiveWorkspace() {
             <span className="text-[#91a5bf]">WORKSPACE.</span>
           </>
         }
-        lead="Техническая база, инструменты и организация собственной работы — без фиктивных шкал владения и придуманных достижений."
+        lead={t(
+          'Техническая база, инструменты и организация собственной работы — без фиктивных шкал владения и придуманных достижений.',
+          'Technical foundation, tools and my own working practices — no fake proficiency scales or invented achievements.',
+        )}
         meta={
           <div className="flex flex-wrap gap-2">
             <Badge variant="accent">Technical stack</Badge>
@@ -75,11 +86,13 @@ export function ExecutiveWorkspace() {
 
           <div className="flex flex-1 flex-col p-5 sm:p-6">
             <h2 id="planning-heading" className="font-display text-xl font-semibold leading-snug tracking-[-0.03em] text-ink sm:text-2xl">
-              Сначала структура, затем скорость.
+              {t('Сначала структура, затем скорость.', 'Structure first, then speed.')}
             </h2>
             <p className="mt-3 max-w-xl text-[12.5px] leading-relaxed text-[#aebdd0]">
-              Структурирование задач, декомпозиция сложной работы на отдельные этапы, определение приоритетов и
-              формирование понятного плана реализации.
+              {t(
+                'Структурирование задач, декомпозиция сложной работы на отдельные этапы, определение приоритетов и формирование понятного плана реализации.',
+                'Structuring tasks, decomposing complex work into stages, setting priorities and forming a clear implementation plan.',
+              )}
             </p>
 
             <ol className="mt-6 space-y-2">
@@ -98,8 +111,10 @@ export function ExecutiveWorkspace() {
             <div className="mt-auto flex items-start gap-2 border-t border-line pt-4">
               <Check size={13} className="mt-0.5 flex-none text-teal" aria-hidden="true" />
               <p className="text-[10.5px] leading-relaxed text-[#6e86a5]">
-                Jira и другие системы управления проектами не указаны как освоенные инструменты без подтверждённого
-                практического контекста.
+                {t(
+                  'Jira и другие системы управления проектами не указаны как освоенные инструменты без подтверждённого практического контекста.',
+                  'Jira and other project management systems are not listed as mastered tools without confirmed practical context.',
+                )}
               </p>
             </div>
           </div>
@@ -116,11 +131,13 @@ export function ExecutiveWorkspace() {
 
           <div className="flex flex-1 flex-col p-5 sm:p-6">
             <h2 id="ai-heading" className="font-display text-xl font-semibold tracking-[-0.03em] text-ink">
-              AI как рабочий инструмент
+              {t('AI как рабочий инструмент', 'AI as a working tool')}
             </h2>
             <p className="mt-2 text-[11.5px] leading-relaxed text-[#9fb0c4]">
-              Использую AI для анализа, прототипирования, помощи в разработке и проверки результата. Не подключаю
-              платные сервисы и не выдаю сгенерированный ответ за готовое решение.
+              {t(
+                'Использую AI для анализа, прототипирования, помощи в разработке и проверки результата. Не подключаю платные сервисы и не выдаю сгенерированный ответ за готовое решение.',
+                'I use AI for analysis, prototyping, development support and verifying the result. No paid subscriptions, and a generated answer is never presented as a finished solution.',
+              )}
             </p>
 
             <div className="mt-4 overflow-hidden border border-line bg-[#0a111d]">
@@ -153,7 +170,7 @@ export function ExecutiveWorkspace() {
                 ))}
               </div>
               <div className="border-t border-line px-3 py-2 font-mono text-[8px] uppercase tracking-[0.1em] text-[#647e9e]">
-                Не является чат-ботом · демонстрация процесса
+                {t('Не является чат-ботом · демонстрация процесса', 'Not a chatbot · a demonstration of the process')}
               </div>
             </div>
 
@@ -175,12 +192,11 @@ export function ExecutiveWorkspace() {
           <div>
             <p className="mono-label">Technical stack</p>
             <h2 id="stack-heading" className="mt-1 font-display text-xl font-semibold tracking-[-0.03em]">
-              Инструменты по категориям
+              {t('Инструменты по категориям', 'Tools by category')}
             </h2>
           </div>
           <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">Select a tool / read context</p>
         </div>
-
         <div className="p-5 sm:p-6">
           <div className="grid gap-3 lg:grid-cols-12">
             {skillGroups.map((group) => (
@@ -230,7 +246,10 @@ export function ExecutiveWorkspace() {
           <div className="mt-3 flex items-start gap-2">
             <Sparkles size={12} className="mt-0.5 flex-none text-[#627b9b]" aria-hidden="true" />
             <p className="text-[10px] leading-relaxed text-[#68809f]">
-              Уровень владения не показан в процентах или шкалах: ниже указан только фактический контекст использования.
+              {t(
+                'Уровень владения не показан в процентах или шкалах: ниже указан только фактический контекст использования.',
+                'Proficiency is not shown as percentages or scales: only the actual context of use is listed below.',
+              )}
             </p>
           </div>
         </div>
@@ -242,7 +261,7 @@ export function ExecutiveWorkspace() {
             <div>
               <p className="mono-label">Documentation & analytics</p>
               <h2 id="documentation-heading" className="mt-1 font-display text-lg font-semibold tracking-[-0.02em]">
-                Документы и аналитика
+                {t('Документы и аналитика', 'Documents and analytics')}
               </h2>
             </div>
             <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">05 tools</span>
@@ -269,7 +288,7 @@ export function ExecutiveWorkspace() {
             <div>
               <p className="mono-label">AI process</p>
               <h2 id="ai-process-heading" className="mt-1 font-display text-lg font-semibold tracking-[-0.02em]">
-                Рабочий цикл с AI
+                {t('Рабочий цикл с AI', 'The working cycle with AI')}
               </h2>
             </div>
             <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">06 steps</span>
@@ -286,7 +305,10 @@ export function ExecutiveWorkspace() {
             ))}
           </ol>
           <p className="mt-4 border-t border-line pt-3 text-[10px] leading-relaxed text-[#6e86a5]">
-            Проверка результата — обязательный этап. AI не заменяет понимание задачи и ответственность за решение.
+            {t(
+              'Проверка результата — обязательный этап. AI не заменяет понимание задачи и ответственность за решение.',
+              'Verifying the result is a mandatory stage. AI does not replace understanding the task or ownership of the solution.',
+            )}
           </p>
         </section>
       </div>

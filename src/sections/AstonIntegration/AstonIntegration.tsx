@@ -13,7 +13,8 @@ import { Link } from 'react-router-dom'
 import { Badge } from '@/components/ui/Badge'
 import { PageFooterNav } from '@/components/ui/PageFooterNav'
 import { SectionHeader } from '@/components/ui/SectionHeader'
-import { astonDirections, astonNote, type AstonDirectionId } from '@/data/astonDirections'
+import { getAstonDirections, getAstonNote, type AstonDirectionId } from '@/data/astonDirections'
+import { useLang } from '@/i18n/language'
 import { cn } from '@/utils/cn'
 
 const icons = {
@@ -24,6 +25,9 @@ const icons = {
 }
 
 export function AstonIntegration() {
+  const { lang, t } = useLang()
+  const astonDirections = getAstonDirections(lang)
+  const astonNote = getAstonNote(lang)
   const [activeId, setActiveId] = useState<AstonDirectionId | null>('delivery')
 
   return (
@@ -38,7 +42,10 @@ export function AstonIntegration() {
             <span className="text-[#91a5bf]">IN ASTON.</span>
           </>
         }
-        lead="Четыре направления. Разные задачи. Общая цель — развитие бизнеса и реализация эффективных IT-решений."
+        lead={t(
+          'Четыре направления. Разные задачи. Общая цель — развитие бизнеса и реализация эффективных IT-решений.',
+          'Four directions. Different tasks. One goal — growing the business and delivering effective IT solutions.',
+        )}
         meta={
           <div className="flex flex-wrap gap-2">
             <Badge variant="accent">Delivery</Badge>
@@ -50,7 +57,7 @@ export function AstonIntegration() {
       />
 
       <div className="grid gap-5 lg:grid-cols-12 lg:gap-6">
-        <div className="space-y-3 lg:col-span-8" role="list" aria-label="Направления программы ASTON">
+        <div className="space-y-3 lg:col-span-8" role="list" aria-label={t('Направления программы ASTON', 'ASTON programme directions')}>
           {astonDirections.map((direction) => {
             const Icon = icons[direction.id]
             const isOpen = activeId === direction.id
@@ -132,7 +139,7 @@ export function AstonIntegration() {
                             </ul>
                           </div>
                           <div>
-                            <p className="mono-label-sm">Хочу развивать</p>
+                            <p className="mono-label-sm">{t('Хочу развивать', 'What I want to develop')}</p>
                             <ul className="mt-2 space-y-1.5">
                               {direction.growth.map((item) => (
                                 <li key={item} className="flex items-start gap-2 text-[11px] leading-snug text-[#8fa4bb]">
@@ -147,7 +154,10 @@ export function AstonIntegration() {
                         <div className="mt-4 flex items-center gap-2 border-t border-line pt-3">
                           <Target size={12} className="flex-none text-[#627b9b]" aria-hidden="true" />
                           <p className="text-[10px] leading-relaxed text-[#6e86a5]">
-                            Направление выбрано как область интереса, а не как подтверждённая специализация.
+                            {t(
+                              'Направление выбрано как область интереса, а не как подтверждённая специализация.',
+                              'The direction is chosen as an area of interest, not a confirmed specialization.',
+                            )}
                           </p>
                         </div>
                       </div>
@@ -181,12 +191,16 @@ export function AstonIntegration() {
 
               <div className="mt-5 grid grid-cols-2 gap-px border border-line bg-line">
                 <div className="bg-panel/70 p-3">
-                  <p className="mono-label-sm">Техническая база</p>
-                  <p className="mt-1 text-[10.5px] leading-snug text-[#a9b9cb]">Понимание разработки и ограничений</p>
+                  <p className="mono-label-sm">{t('Техническая база', 'Technical foundation')}</p>
+                  <p className="mt-1 text-[10.5px] leading-snug text-[#a9b9cb]">
+                    {t('Понимание разработки и ограничений', 'Understanding development and its constraints')}
+                  </p>
                 </div>
                 <div className="bg-panel/70 p-3">
-                  <p className="mono-label-sm">Организация</p>
-                  <p className="mt-1 text-[10.5px] leading-snug text-[#a9b9cb]">Опыт координации и коммуникации</p>
+                  <p className="mono-label-sm">{t('Организация', 'Organization')}</p>
+                  <p className="mt-1 text-[10.5px] leading-snug text-[#a9b9cb]">
+                    {t('Опыт координации и коммуникации', 'Experience in coordination and communication')}
+                  </p>
                 </div>
               </div>
 
@@ -197,7 +211,9 @@ export function AstonIntegration() {
                 >
                   <span>
                     <span className="mono-label-sm block">Next step</span>
-                    <span className="mt-1 block text-[12px] font-medium text-ink">Открыть финальный экран</span>
+                    <span className="mt-1 block text-[12px] font-medium text-ink">
+                      {t('Открыть финальный экран', 'Open the final screen')}
+                    </span>
                   </span>
                   <ArrowRight size={16} className="text-accent transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                 </Link>

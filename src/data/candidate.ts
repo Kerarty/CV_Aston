@@ -17,7 +17,9 @@ export const candidate = {
   roleRu: 'Будущий IT-менеджер',
   profile: 'Technical & Leadership',
   programme: 'ASTON · Программа развития менеджмента',
+  programmeEn: 'ASTON · Management Development Programme',
   positioning: 'От технического мышления — к управлению IT-проектами',
+  positioningEn: 'From technical thinking to IT project management',
   tagline: 'From Technical Thinking to Project Leadership',
 
   education: {
@@ -29,6 +31,15 @@ export const candidate = {
     form: 'Дневная форма обучения',
   },
 
+  educationEn: {
+    institution: 'BSUIR',
+    institutionFull: 'Belarusian State University of Informatics and Radioelectronics',
+    programme: 'Information Systems and Technologies in the Game Industry',
+    level: "Master's degree",
+    course: '4th year',
+    form: 'Full-time studies',
+  },
+
   focus: ['Project Management', 'IT Operations', 'Business Analysis', 'Process Optimization', 'AI Tools', 'Team Coordination'],
 
   summary: [
@@ -37,7 +48,14 @@ export const candidate = {
     'Хочу развиваться на стыке технологий, аналитики и управления, постепенно переходя от самостоятельной работы над проектами к управлению командами и IT-процессами.',
   ],
 
+  summaryEn: [
+    'I study at BSUIR, majoring in Information Systems and Technologies in the Game Industry. My studies gave me a technical foundation in programming, software development, databases and information systems design.',
+    'What interests me is not only the technical implementation but the organization of the process itself: understanding tasks, formulating requirements, decomposing the work, coordinating participants and reaching a shared result.',
+    'I want to grow at the intersection of technology, analytics and management — moving gradually from working on projects on my own to leading teams and IT processes.',
+  ],
+
   goal: 'Научиться превращать сложные задачи в понятные процессы, объединять людей вокруг общей цели и доводить проекты до результата.',
+  goalEn: 'Learn to turn complex tasks into clear processes, bring people together around a shared goal and deliver projects to a result.',
 
   links: {
     github: 'https://github.com/Kerarty',
@@ -56,4 +74,6 @@ export const candidate = {
 
   disclaimer:
     'Личное портфолио кандидата, созданное для отклика на программу развития менеджмента ASTON. Не является официальным продуктом компании ASTON.',
+  disclaimerEn:
+    'A personal candidate portfolio created for the ASTON management development programme application. Not an official product of ASTON.',
 } as const

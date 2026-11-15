@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { contactSection, sections } from '@/app/navigation'
 import { candidate } from '@/data/candidate'
+import { useLang } from '@/i18n/language'
 import { cn } from '@/utils/cn'
 import { LogoMark } from '@/components/ui/LogoMark'
 
@@ -22,12 +23,13 @@ type SidebarProps = {
 }
 
 export function Sidebar({ collapsed, mobileOpen, onToggleCollapse, onCloseMobile }: SidebarProps) {
+  const { lang, t } = useLang()
   const compact = collapsed && !mobileOpen
 
   return (
     <aside
       id="site-navigation"
-      aria-label="Основная навигация"
+      aria-label={t('Основная навигация', 'Primary navigation')}
       className={cn(
         'fixed inset-y-0 left-0 z-50 flex flex-col border-r border-line bg-[#080d18]/97 backdrop-blur-lg transition-[width,transform,visibility] duration-200 ease-out',
         compact ? 'w-[84px]' : 'w-[280px]',
@@ -51,7 +53,7 @@ export function Sidebar({ collapsed, mobileOpen, onToggleCollapse, onCloseMobile
           type="button"
           onClick={onCloseMobile}
           className="ml-auto flex h-10 w-10 flex-none items-center justify-center border border-line text-muted transition-colors hover:text-ink lg:hidden"
-          aria-label="Закрыть меню"
+          aria-label={t('Закрыть меню', 'Close menu')}
         >
           <X size={17} aria-hidden="true" />
         </button>
@@ -64,7 +66,7 @@ export function Sidebar({ collapsed, mobileOpen, onToggleCollapse, onCloseMobile
         </p>
       </div>
 
-      <nav className="flex-1 overflow-y-auto px-2 pb-3" aria-label="Разделы портфолио">
+      <nav className="flex-1 overflow-y-auto px-2 pb-3" aria-label={t('Разделы портфолио', 'Portfolio sections')}>
         <ol className="space-y-1">
           {sections.map((section) => {
             const Icon = section.icon
@@ -138,7 +140,7 @@ export function Sidebar({ collapsed, mobileOpen, onToggleCollapse, onCloseMobile
         <div className={cn('mb-3 border border-line/80 bg-panel/35 p-3', compact && 'hidden')}>
           <p className="mono-label-sm">Application</p>
           <p className="mt-1 text-[11px] leading-relaxed text-[#b7c4d6]">
-            ASTON · Программа развития менеджмента
+            {lang === 'en' ? 'ASTON · Management Development Programme' : 'ASTON · Программа развития менеджмента'}
           </p>
           <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.12em] text-[#5e7696]">Review copy · 2026</p>
         </div>
@@ -169,7 +171,7 @@ export function Sidebar({ collapsed, mobileOpen, onToggleCollapse, onCloseMobile
               )}
             >
               <Download size={15} aria-hidden="true" />
-              <span className={cn(compact && 'sr-only')}>Скачать CV</span>
+              <span className={cn(compact && 'sr-only')}>{t('Скачать CV', 'Download CV')}</span>
             </a>
           ) : null}
 
@@ -205,14 +207,14 @@ export function Sidebar({ collapsed, mobileOpen, onToggleCollapse, onCloseMobile
           <NavLink
             to={contactSection.path}
             onClick={onCloseMobile}
-            title="Перейти к контактам"
+            title={t('Перейти к контактам', 'Go to contacts')}
             className={cn(
               'btn btn-primary mt-1 w-full',
               compact && 'h-11 w-11 overflow-hidden px-0 text-[0px]',
             )}
           >
             <Mail size={15} aria-hidden="true" />
-            <span className={cn(compact && 'sr-only')}>Связаться</span>
+            <span className={cn(compact && 'sr-only')}>{t('Связаться', 'Get in touch')}</span>
           </NavLink>
         </div>
 
@@ -223,7 +225,7 @@ export function Sidebar({ collapsed, mobileOpen, onToggleCollapse, onCloseMobile
             'mt-3 hidden min-h-[38px] w-full items-center gap-2 border-t border-line pt-3 text-left font-mono text-[9px] uppercase tracking-[0.14em] text-[#637b99] transition-colors hover:text-ink lg:flex',
             compact && 'justify-center',
           )}
-          aria-label={collapsed ? 'Развернуть боковую панель' : 'Свернуть боковую панель'}
+          aria-label={collapsed ? t('Развернуть боковую панель', 'Expand the sidebar') : t('Свернуть боковую панель', 'Collapse the sidebar')}
           aria-expanded={!collapsed}
         >
           {collapsed ? <ChevronRight size={14} aria-hidden="true" /> : <ChevronLeft size={14} aria-hidden="true" />}

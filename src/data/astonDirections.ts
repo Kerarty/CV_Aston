@@ -1,3 +1,5 @@
+import type { Lang } from '@/i18n/language'
+
 export type AstonDirectionId = 'delivery' | 'operations' | 'sales' | 'people'
 
 export type AstonDirection = {
@@ -112,3 +114,111 @@ export const astonDirections: AstonDirection[] = [
 
 export const astonNote =
   'Наиболее интересными для первоначального профессионального развития мне представляются Delivery и Operations. При этом я открыт к знакомству с остальными направлениями программы и готов определять наиболее подходящую специализацию исходя из результатов обучения и собственных сильных сторон.'
+
+const astonDirectionsEn: AstonDirection[] = [
+  {
+    id: 'delivery',
+    index: '01',
+    name: 'Delivery',
+    ru: 'Реализация IT-проектов',
+    description:
+      'Managing IT project delivery, coordinating teams, controlling deadlines, budget and quality.',
+    interestsLabel: 'Related interests',
+    interests: [
+      'organizing work',
+      'understanding development',
+      'task decomposition',
+      'progress control',
+      'team interaction',
+    ],
+    growth: [
+      'managing deadlines and budgets',
+      'working with requirements and acceptance criteria',
+      'team coordination',
+      'quality control of the result',
+    ],
+    status: 'primary',
+    statusLabel: 'Primary interest',
+  },
+  {
+    id: 'operations',
+    index: '02',
+    name: 'Operations',
+    ru: 'Процессы и операционная эффективность',
+    description:
+      'Improving internal company processes, working with resources, analytics and automation.',
+    interestsLabel: 'Related interests',
+    interests: [
+      'systems thinking',
+      'analytics',
+      'structuring information',
+      'AI tooling',
+      'process optimization',
+    ],
+    growth: [
+      'analysing and documenting processes',
+      'automating routine operations',
+      'internal services and workflows',
+      'working with efficiency metrics',
+    ],
+    status: 'primary',
+    statusLabel: 'Primary interest',
+  },
+  {
+    id: 'sales',
+    index: '03',
+    name: 'Sales & Marketing',
+    ru: 'Клиенты и продвижение экспертизы',
+    description:
+      'Developing client relationships, finding new opportunities and promoting the company expertise.',
+    interestsLabel: 'Related qualities',
+    interests: [
+      'communication',
+      'presenting ideas',
+      'understanding technical products',
+      'interest in business processes',
+    ],
+    growth: [
+      'client communication',
+      'presenting technical solutions',
+      'understanding business models',
+      'working with feedback',
+    ],
+    status: 'open',
+    statusLabel: 'Open to explore',
+  },
+  {
+    id: 'people',
+    index: '04',
+    name: 'People',
+    ru: 'Люди и развитие команд',
+    description:
+      'Working with people: onboarding, mentoring, development and company culture.',
+    interestsLabel: 'Related qualities',
+    interests: [
+      'organizational experience',
+      'communication',
+      'coordinating participants',
+      'genuine interest in team growth',
+    ],
+    growth: [
+      'onboarding and mentoring',
+      'growing team practices',
+      'company initiatives',
+      'feedback and support',
+    ],
+    status: 'open',
+    statusLabel: 'Open to explore',
+  },
+]
+
+export const astonNoteEn =
+  'Delivery and Operations look most interesting to me for the initial professional development. At the same time I am open to exploring the other programme directions and ready to settle on the best specialization based on the results of the programme and my own strengths.'
+
+export function getAstonDirections(lang: Lang): AstonDirection[] {
+  return lang === 'en' ? astonDirectionsEn : astonDirections
+}
+
+export function getAstonNote(lang: Lang): string {
+  return lang === 'en' ? astonNoteEn : astonNote
+}

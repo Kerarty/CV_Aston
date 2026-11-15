@@ -30,8 +30,9 @@ import { PageFooterNav } from '@/components/ui/PageFooterNav'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { buttonClass } from '@/components/ui/Button'
 import { LogoMark } from '@/components/ui/LogoMark'
-import { getEcosystemNode, ecosystemNodes, type EcosystemNodeId } from '@/data/ecosystem'
-import { projects } from '@/data/projects'
+import { getEcosystemNode, getEcosystemNodes, type EcosystemNodeId } from '@/data/ecosystem'
+import { getProjects } from '@/data/projects'
+import { useLang, type LocalText } from '@/i18n/language'
 import { usePrefersReducedMotion } from '@/hooks/useMediaQuery'
 import { SceneFallback } from '@/sections/ProjectEcosystem/SceneFallback'
 import { cn } from '@/utils/cn'
@@ -73,6 +74,7 @@ class SceneErrorBoundary extends Component<{ children: ReactNode; fallback: Reac
 }
 
 function SceneLoader({ sceneReady, onSkip }: { sceneReady: boolean; onSkip: () => void }) {
+  const { t } = useLang()
   return (
     <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-[#070c15]/94 px-6 text-center backdrop-blur-sm">
       <LogoMark size={40} />
@@ -82,8 +84,8 @@ function SceneLoader({ sceneReady, onSkip }: { sceneReady: boolean; onSkip: () =
       </div>
       <p className="mt-3 max-w-xs text-[11px] leading-relaxed text-[#6e86a5]">
         {sceneReady
-          ? 'Модели загружены. Раскрываем ядро, направления ASTON и портфолио.'
-          : 'Загружаем архитектурные модели и материалы сцены.'}
+          ? t('Модели загружены. Раскрываем ядро, направления ASTON и портфолио.', 'Models loaded. Revealing the core, the ASTON directions and the portfolio.')
+          : t('Загружаем архитектурные модели и материалы сцены.', 'Loading the architectural models and scene materials.')}
       </p>
       {sceneReady ? (
         <button
@@ -109,28 +111,40 @@ function ScenePlaceholder() {
   )
 }
 
-const layers = [
+const layers: Array<{ index: string; label: string; name: LocalText; text: LocalText }> = [
   {
     index: '01',
     label: 'CORE',
-    ru: 'Кандидат',
-    text: 'Техническая база, интересы и управленческий вектор.',
+    name: { ru: 'Кандидат', en: 'The candidate' },
+    text: {
+      ru: 'Техническая база, интересы и управленческий вектор.',
+      en: 'Technical foundation, interests and the management vector.',
+    },
   },
   {
     index: '02',
     label: 'ASTON MODULES',
-    ru: 'Направления',
-    text: 'Delivery, Operations, Sales & Marketing, People.',
+    name: { ru: 'Направления', en: 'The directions' },
+    text: {
+      ru: 'Delivery, Operations, Sales & Marketing, People.',
+      en: 'Delivery, Operations, Sales & Marketing, People.',
+    },
   },
   {
     index: '03',
     label: 'PORTFOLIO ISLAND',
-    ru: 'Проекты',
-    text: 'Factory Management, Runner, Technical Projects.',
+    name: { ru: 'Проекты', en: 'The projects' },
+    text: {
+      ru: 'Factory Management, Runner, Technical Projects.',
+      en: 'Factory Management, Runner, Technical Projects.',
+    },
   },
 ]
 
 export default function ProjectEcosystem() {
+  const { lang, t } = useLang()
+  const ecosystemNodes = getEcosystemNodes(lang)
+  const projects = getProjects(lang)
   const reducedMotion = usePrefersReducedMotion()
   const [webgl] = useState(detectWebGL)
   const [selected, setSelected] = useState<EcosystemNodeId>('core')
@@ -142,8 +156,8 @@ export default function ProjectEcosystem() {
   const [introDone, setIntroDone] = useState(() => reducedMotion || !webgl)
   const progress = useRef({ value: reducedMotion ? 1 : 0 })
 
-  const node = getEcosystemNode(selected)
-  const hoveredNode = hovered ? getEcosystemNode(hovered) : null
+  const node = getEcosystemNode(selected, lang)
+  const hoveredNode = hovered ? getEcosystemNode(hovered, lang) : null
 
   const handleReady = useCallback(() => setSceneReady(true), [])
 
@@ -201,7 +215,10 @@ export default function ProjectEcosystem() {
             <span className="text-[#91a5bf]">ECOSYSTEM.</span>
           </>
         }
-        lead="Пространственная модель экосистемы: ядро кандидата, четыре направления ASTON и портфолио проектов."
+        lead={t(
+          'Пространственная модель экосистемы: ядро кандидата, четыре направления ASTON и портфолио проектов.',
+          'A spatial model of the ecosystem: the candidate core, four ASTON directions and the project portfolio.',
+        )}
         meta={
           <div className="flex flex-wrap gap-2">
             <Badge variant="accent">Interactive 3D</Badge>
@@ -215,7 +232,7 @@ export default function ProjectEcosystem() {
       />
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1.62fr)_minmax(340px,0.78fr)] xl:items-start xl:gap-6">
-        <section className="panel overflow-hidden" aria-label="Интерактивная 3D-экосистема">
+        <section className="panel overflow-hidden" aria-label={t('Интерактивная 3D-экосистема', 'Interactive 3D ecosystem')}>
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-4 py-3 sm:px-5">
             <div className="flex items-center gap-2.5">
               <span className="h-1.5 w-1.5 bg-accent" aria-hidden="true" />
@@ -257,7 +274,10 @@ export default function ProjectEcosystem() {
                 <SceneFallback
                   selected={selected}
                   onSelect={handleSelect}
-                  reason="3D-сцена не запустилась на этом устройстве. Показана схема экосистемы."
+                  reason={t(
+                    '3D-сцена не запустилась на этом устройстве. Показана схема экосистемы.',
+                    'The 3D scene did not start on this device. The ecosystem schematic is shown instead.',
+                  )}
                 />
               }
             >
@@ -447,8 +467,10 @@ export default function ProjectEcosystem() {
               <Boxes size={14} className="text-[#627b9b]" aria-hidden="true" />
             </div>
             <p className="mt-3 text-[11px] leading-relaxed text-[#8fa2b9]">
-              Ядро, орбиты, платформы и связи построены процедурно. Архитектурные модели — Kenney City Kit
-              (Commercial) и Space Kit, лицензия CC0.
+              {t(
+                'Ядро, орбиты, платформы и связи построены процедурно. Архитектурные модели — Kenney City Kit (Commercial) и Space Kit, лицензия CC0.',
+                'The core, orbits, platforms and connections are procedural. The architectural models are Kenney City Kit (Commercial) and Space Kit, CC0 licensed.',
+              )}
             </p>
             <a
               href="https://kenney.nl/assets"
@@ -460,21 +482,27 @@ export default function ProjectEcosystem() {
               <ExternalLink size={11} aria-hidden="true" />
             </a>
             <p className="mt-3 border-t border-line pt-3 text-[10px] leading-relaxed text-[#68809f]">
-              Сцена — визуальная навигация. Все данные и ссылки доступны в списке объектов и в разделах портфолио.
+              {t(
+                'Сцена — визуальная навигация. Все данные и ссылки доступны в списке объектов и в разделах портфолио.',
+                'The scene is visual navigation. All data and links are available in the object index and the portfolio sections.',
+              )}
             </p>
           </div>
         </aside>
       </div>
 
-      <section className="mt-5 grid gap-px border border-line bg-line sm:grid-cols-3 lg:mt-6" aria-label="Три уровня экосистемы">
+      <section
+        className="mt-5 grid gap-px border border-line bg-line sm:grid-cols-3 lg:mt-6"
+        aria-label={t('Три уровня экосистемы', 'Three levels of the ecosystem')}
+      >
         {layers.map((layer) => (
           <div key={layer.index} className="bg-base-2/70 p-5">
             <div className="flex items-center justify-between gap-3">
               <p className="mono-label-sm">{layer.label}</p>
               <span className="font-mono text-[9px] text-accent">{layer.index}</span>
             </div>
-            <p className="mt-2 font-display text-[15px] font-semibold tracking-[-0.01em] text-[#c8d4e2]">{layer.ru}</p>
-            <p className="mt-1 text-[11px] leading-relaxed text-[#7d91aa]">{layer.text}</p>
+            <p className="mt-2 font-display text-[15px] font-semibold tracking-[-0.01em] text-[#c8d4e2]">{layer.name[lang]}</p>
+            <p className="mt-1 text-[11px] leading-relaxed text-[#7d91aa]">{layer.text[lang]}</p>
           </div>
         ))}
       </section>

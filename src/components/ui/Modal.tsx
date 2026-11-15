@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { X } from 'lucide-react'
+import { useLang } from '@/i18n/language'
 import { cn } from '@/utils/cn'
 
 type ModalProps = {
@@ -14,6 +15,7 @@ type ModalProps = {
 }
 
 export function Modal({ open, onClose, title, eyebrow, children, className }: ModalProps) {
+  const { t } = useLang()
   const panelRef = useRef<HTMLDivElement>(null)
   const titleId = useId()
 
@@ -108,7 +110,7 @@ export function Modal({ open, onClose, title, eyebrow, children, className }: Mo
                 type="button"
                 onClick={onClose}
                 className="flex h-10 w-10 flex-none items-center justify-center border border-line text-muted transition-colors hover:border-accent/60 hover:text-ink"
-                aria-label="Закрыть окно"
+                aria-label={t('Закрыть окно', 'Close dialog')}
               >
                 <X size={17} aria-hidden="true" />
               </button>

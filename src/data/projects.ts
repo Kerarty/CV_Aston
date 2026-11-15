@@ -1,3 +1,5 @@
+import type { Lang } from '@/i18n/language'
+
 export type ProjectGlyph = 'factory' | 'runner' | 'systems'
 
 export type ProjectDetails = {
@@ -156,3 +158,137 @@ export const projects: Project[] = [
     },
   },
 ]
+
+const projectsEn: Project[] = [
+  {
+    id: 'factory-management',
+    index: '01',
+    name: 'Factory Management',
+    subtitle: 'Game simulation of production management',
+    type: 'Diploma Project',
+    typeRu: 'Дипломный проект',
+    description:
+      'A diploma project: a game simulation of managing a production facility. It covers game mechanics, an order system, production processes, progression, economy and the logic that connects the game systems together.',
+    technologies: ['Unity', 'C#', 'Game Design', 'AI-assisted Development'],
+    glyph: 'factory',
+    links: {},
+    mediaNote: 'Screenshots and demo materials are available on request.',
+    details: {
+      overview:
+        'A simulation where the player runs a production facility: accepts orders, organizes production chains and keeps the in-game economy healthy.',
+      objective:
+        'Design a coherent game system where production, orders, progression and economy work as connected logic rather than a set of separate features.',
+      contribution: [
+        'Developed the game concept and the project framework.',
+        'Designed the game mechanics and player scenarios.',
+        'Decomposed the project into functional systems and subsystems.',
+        'Designed the logic of production processes and the economy.',
+        'Used AI tools to support implementation and verify decisions.',
+        'Separated my own game design and systems work from AI-assisted code implementation.',
+      ],
+      tools: ['Unity', 'C#', 'Game design', 'AI tools for development and verification'],
+      workflow: [
+        'Studied references and shaped the game idea.',
+        'Described the key systems: orders, production, progression, economy.',
+        'Decomposed the work into implementable modules and player scenarios.',
+        'Prototyped and implemented the systems step by step.',
+        'Verified the logic, fixed defects and refined the interactions.',
+      ],
+      outcome:
+        'A completed diploma project with working game systems and a well-developed production logic.',
+      lessons: [
+        'A complex game is easier to build by decomposing it into independent systems.',
+        'AI speeds up implementation but requires verification and understanding of the result.',
+        'Clear game rules matter more than the number of mechanics.',
+      ],
+    },
+  },
+  {
+    id: 'runner',
+    index: '02',
+    name: 'Runner',
+    subtitle: 'A small self-driven game prototype',
+    type: 'Personal Project',
+    typeRu: 'Личный проект',
+    description:
+      'A small self-driven game prototype built over a few days while learning the development tooling on my own.',
+    technologies: ['Game Development', 'Prototyping', 'Web Build'],
+    glyph: 'runner',
+    links: {
+      play: 'https://kerarty.github.io/runner/',
+      source: 'https://github.com/Kerarty',
+    },
+    details: {
+      overview:
+        'A compact browser prototype that let me cover the full path from idea to a published result within a limited time.',
+      objective:
+        'Check how quickly I could learn the required tool and bring a small game idea to a working demo version.',
+      contribution: [
+        'Organized the work on the prototype on my own.',
+        'Learned the tools required for the implementation.',
+        'Prototyped the core game mechanic.',
+        'Tested the build and fixed the issues found.',
+        'Published the prototype as a demo result.',
+      ],
+      tools: ['Game development', 'Prototyping', 'Browser builds', 'GitHub'],
+      workflow: [
+        'Defined the minimum scope of the prototype.',
+        'Picked the tools and started building quickly.',
+        'Implemented the core mechanic and tested the hypothesis.',
+        'Tested, fixed issues and prepared the release.',
+      ],
+      outcome:
+        'A published game prototype available by link, with source materials in the GitHub profile.',
+      lessons: [
+        'A limited scope helps carry an idea to the finish line.',
+        'A quick prototype shows the value of iteration.',
+        'Publishing is part of the verification, not a formality.',
+      ],
+    },
+  },
+  {
+    id: 'technical-projects',
+    index: '03',
+    name: 'Technical Projects',
+    subtitle: 'Course work in programming and data',
+    type: 'Academic & Technical Projects',
+    typeRu: 'Учебные и технические проекты',
+    description:
+      'Academic projects where I worked with programming, databases, testing and the technical implementation of various tasks.',
+    technologies: ['Python', 'C#', 'C/C++', 'JavaScript', 'SQL', 'Git', 'Postman'],
+    glyph: 'systems',
+    links: {},
+    mediaNote: 'Materials of individual course projects are available on request.',
+    details: {
+      overview:
+        'A set of academic projects that built my technical foundation: from programming and data work to testing and development tooling.',
+      objective:
+        'Solidify the technical basics and learn to apply them to tasks of different scale — from individual algorithms to databases and API verification.',
+      contribution: [
+        'Completed course assignments in Python, C#, C/C++ and JavaScript.',
+        'Worked with relational databases and SQL queries.',
+        'Tested scenarios and verified system behaviour.',
+        'Used Git, GitHub and Postman in academic tasks.',
+      ],
+      tools: ['Python', 'C#', 'C/C++', 'JavaScript', 'SQL', 'Git', 'GitHub', 'Postman'],
+      workflow: [
+        'Studied the task statement and requirements.',
+        'Broke the task down into separate steps.',
+        'Implemented and locally verified the solution.',
+        'Tested edge cases and fixed the defects.',
+      ],
+      outcome:
+        'A technical foundation I can now apply when analysing and coordinating IT tasks. Specific materials are available on request.',
+      lessons: [
+        'Understanding technical constraints makes task statements more precise.',
+        'Verifying the result is a mandatory part of the work.',
+        'Different languages and tools give a broader view of any solution.',
+      ],
+    },
+  },
+]
+
+/** Возвращает досье проектов на выбранном языке. */
+export function getProjects(lang: Lang): Project[] {
+  return lang === 'en' ? projectsEn : projects
+}

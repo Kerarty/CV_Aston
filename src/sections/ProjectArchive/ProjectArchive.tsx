@@ -5,7 +5,8 @@ import { Button, buttonClass } from '@/components/ui/Button'
 import { Modal } from '@/components/ui/Modal'
 import { PageFooterNav } from '@/components/ui/PageFooterNav'
 import { SectionHeader } from '@/components/ui/SectionHeader'
-import { projects, type Project } from '@/data/projects'
+import { getProjects, type Project } from '@/data/projects'
+import { useLang } from '@/i18n/language'
 import { ProjectGlyph } from '@/sections/ProjectArchive/ProjectGlyph'
 import { cn } from '@/utils/cn'
 
@@ -27,6 +28,7 @@ function ProjectDossier({
   open: boolean
   onClose: () => void
 }) {
+  const { t } = useLang()
   return (
     <Modal
       open={open}
@@ -53,7 +55,7 @@ function ProjectDossier({
               <div className="mt-3 space-y-2 text-[11.5px] text-[#b7c5d7]">
                 <p className="flex items-center justify-between gap-3">
                   <span className="text-muted">Type</span>
-                  <span className="text-right">{project.typeRu}</span>
+                  <span className="text-right">{t(project.typeRu, project.type)}</span>
                 </p>
                 <p className="flex items-center justify-between gap-3">
                   <span className="text-muted">Materials</span>
@@ -149,8 +151,13 @@ function ProjectDossier({
 }
 
 export function ProjectArchive() {
-  const [selected, setSelected] = useState(projects[0])
-  const [dossier, setDossier] = useState<Project | null>(null)
+  const { lang, t } = useLang()
+  const projects = getProjects(lang)
+  // Храним id, а не объекты: деревья проектов пересоздаются при смене языка.
+  const [selectedId, setSelectedId] = useState(projects[0].id)
+  const selected = projects.find((project) => project.id === selectedId) ?? projects[0]
+  const [dossierId, setDossierId] = useState<string | null>(null)
+  const dossier = dossierId ? projects.find((project) => project.id === dossierId) ?? null : null
   // Keep the project in state after close so the exit animation doesn't show an empty panel.
   const [dossierOpen, setDossierOpen] = useState(false)
 
@@ -166,7 +173,10 @@ export function ProjectArchive() {
             <span className="text-[#91a5bf]">ARCHIVE.</span>
           </>
         }
-        lead="Три категории проектного опыта: дипломная работа, самостоятельный прототип и учебные технические проекты."
+        lead={t(
+          'Три категории проектного опыта: дипломная работа, самостоятельный прототип и учебные технические проекты.',
+          'Three categories of project experience: a diploma project, a self-driven prototype and academic technical projects.',
+        )}
         meta={
           <div className="flex flex-wrap items-center gap-2">
             <Badge variant="accent">03 dossiers</Badge>
@@ -183,7 +193,7 @@ export function ProjectArchive() {
             <div>
               <p className="mono-label">Archive index</p>
               <h2 id="archive-index-heading" className="mt-1 font-display text-lg font-semibold tracking-[-0.02em]">
-                Проектные досье
+                {t('Проектные досье', 'Project dossiers')}
               </h2>
             </div>
             <span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">
@@ -200,7 +210,7 @@ export function ProjectArchive() {
                   <li key={project.id}>
                     <button
                       type="button"
-                      onClick={() => setSelected(project)}
+                      onClick={() => setSelectedId(project.id)}
                       aria-pressed={isActive}
                       className={cn(
                         'group flex w-full items-center gap-3 border p-3 text-left transition-colors sm:gap-4 sm:p-4',
@@ -235,8 +245,10 @@ export function ProjectArchive() {
           <div className="border-t border-line px-5 py-4">
             <p className="flex items-start gap-2 text-[10.5px] leading-relaxed text-[#6e86a5]">
               <FileText size={13} className="mt-0.5 flex-none" aria-hidden="true" />
-              В архив включены только проекты, о которых есть подтверждённый контекст. Материалы без реальных файлов не
-              добавлялись.
+              {t(
+                'В архив включены только проекты, о которых есть подтверждённый контекст. Материалы без реальных файлов не добавлялись.',
+                'The archive includes only projects with verified context. Materials without real files were not added.',
+              )}
             </p>
           </div>
         </section>
@@ -254,7 +266,7 @@ export function ProjectArchive() {
             <ProjectGlyph glyph={selected.glyph} />
             <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between gap-4">
               <div>
-                <p className="font-mono text-[8.5px] uppercase tracking-[0.14em] text-[#7d91aa]">{selected.typeRu}</p>
+                <p className="font-mono text-[8.5px] uppercase tracking-[0.14em] text-[#7d91aa]">{t(selected.typeRu, selected.type)}</p>
                 <p className="mt-1 font-display text-2xl font-bold tracking-[-0.04em] text-ink sm:text-3xl">
                   {selected.name}
                 </p>
@@ -281,12 +293,12 @@ export function ProjectArchive() {
               <Button
                 variant="primary"
                 onClick={() => {
-                  setDossier(selected)
+                  setDossierId(selected.id)
                   setDossierOpen(true)
                 }}
               >
                 <FileText size={14} aria-hidden="true" />
-                Открыть досье
+                {t('Открыть досье', 'Open dossier')}
               </Button>
               {selected.links.play ? (
                 <a href={selected.links.play} target="_blank" rel="noreferrer noopener" className={buttonClass('secondary')}>

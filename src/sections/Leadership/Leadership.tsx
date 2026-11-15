@@ -4,7 +4,12 @@ import { ArrowUpRight, Minus, Plus, RotateCcw, Users } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { PageFooterNav } from '@/components/ui/PageFooterNav'
 import { SectionHeader } from '@/components/ui/SectionHeader'
-import { leadershipAreas, leadershipIntro, managementCycle } from '@/data/leadership'
+import {
+  getLeadershipAreas,
+  getLeadershipIntro,
+  getManagementCycle,
+} from '@/data/leadership'
+import { useLang } from '@/i18n/language'
 import { cn } from '@/utils/cn'
 
 function LeadershipMap() {
@@ -88,8 +93,10 @@ function LeadershipMap() {
 }
 
 function ManagementCycle() {
-  const [activeId, setActiveId] = useState(managementCycle[0].id)
-  const active = managementCycle.find((stage) => stage.id === activeId) ?? managementCycle[0]
+  const { lang, t } = useLang()
+  const cycle = getManagementCycle(lang)
+  const [activeId, setActiveId] = useState(cycle[0].id)
+  const active = cycle.find((stage) => stage.id === activeId) ?? cycle[0]
   const center = 220
   const radius = 152
 
@@ -99,7 +106,7 @@ function ManagementCycle() {
         <div>
           <p className="mono-label">Management cycle</p>
           <h2 id="cycle-heading" className="mt-1 font-display text-lg font-semibold tracking-[-0.02em]">
-            Как устроен рабочий цикл
+            {t('Как устроен рабочий цикл', 'How the working cycle is built')}
           </h2>
         </div>
         <div className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.14em] text-[#68809f]">
@@ -148,8 +155,8 @@ function ManagementCycle() {
               {active.title.toUpperCase()}
             </text>
 
-            {managementCycle.map((stage, index) => {
-              const angle = (Math.PI * 2 * index) / managementCycle.length - Math.PI / 2
+            {cycle.map((stage, index) => {
+              const angle = (Math.PI * 2 * index) / cycle.length - Math.PI / 2
               const x = center + Math.cos(angle) * radius
               const y = center + Math.sin(angle) * radius
               const isActive = stage.id === activeId
@@ -201,8 +208,8 @@ function ManagementCycle() {
             <p className="mt-3 text-pretty text-[13px] leading-relaxed text-[#c2cddd]">{active.description}</p>
           </div>
 
-          <div className="mt-4 space-y-1" role="tablist" aria-label="Этапы управленческого цикла">
-            {managementCycle.map((stage) => {
+          <div className="mt-4 space-y-1" role="tablist" aria-label={t('Этапы управленческого цикла', 'Management cycle stages')}>
+            {cycle.map((stage) => {
               const isActive = stage.id === activeId
               return (
                 <button
@@ -229,7 +236,10 @@ function ManagementCycle() {
           </div>
 
           <p className="mt-auto pt-5 font-mono text-[9px] uppercase leading-relaxed tracking-[0.12em] text-[#68809f]">
-            После review цикл возвращается к plan — это не линейная, а повторяющаяся последовательность.
+            {t(
+              'После review цикл возвращается к plan — это не линейная, а повторяющаяся последовательность.',
+              'After review the cycle returns to plan — this is a repeating sequence, not a linear one.',
+            )}
           </p>
         </div>
       </div>
@@ -238,6 +248,9 @@ function ManagementCycle() {
 }
 
 export function Leadership() {
+  const { lang, t } = useLang()
+  const leadershipIntro = getLeadershipIntro(lang)
+  const leadershipAreas = getLeadershipAreas(lang)
   const [activeArea, setActiveArea] = useState<string | null>(leadershipAreas[0].id)
 
   return (
@@ -252,7 +265,10 @@ export function Leadership() {
             <span className="text-[#91a5bf]">IN PRACTICE.</span>
           </>
         }
-        lead="Опыт руководства факультетским студенческим советом — практика организации совместной работы, коммуникации и ответственности за согласованные действия."
+        lead={t(
+          'Опыт руководства факультетским студенческим советом — практика организации совместной работы, коммуникации и ответственности за согласованные действия.',
+          'The experience of leading the faculty student council — practice in organizing joint work, communication and accountability for agreed actions.',
+        )}
         meta={
           <div className="flex flex-wrap gap-2">
             <Badge variant="accent">Faculty Student Council</Badge>
@@ -291,11 +307,11 @@ export function Leadership() {
             </p>
 
             <div className="mt-7 grid gap-px border border-line bg-line sm:grid-cols-3">
-              {[
-                ['Focus', 'Организация работы'],
-                ['Mode', 'Координация участников'],
-                ['Outcome', 'Согласованные действия'],
-              ].map(([label, value]) => (
+              {([
+                ['Focus', t('Организация работы', 'Organizing work')],
+                ['Mode', t('Координация участников', 'Coordinating participants')],
+                ['Outcome', t('Согласованные действия', 'Agreed actions')],
+              ] as Array<[string, string]>).map(([label, value]) => (
                 <div key={label} className="bg-panel/70 p-3">
                   <p className="mono-label-sm">{label}</p>
                   <p className="mt-1.5 text-[11.5px] leading-snug text-[#c7d1df]">{value}</p>
@@ -321,7 +337,7 @@ export function Leadership() {
           <div>
             <p className="mono-label">Experience areas</p>
             <h2 id="areas-heading" className="mt-1 font-display text-xl font-semibold tracking-[-0.03em]">
-              Четыре направления опыта
+              {t('Четыре направления опыта', 'Four directions of experience')}
             </h2>
           </div>
           <p className="hidden font-mono text-[9px] uppercase tracking-[0.14em] text-[#68809f] sm:block">

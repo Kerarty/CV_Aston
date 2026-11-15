@@ -2,7 +2,44 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { Home, Menu, MonitorPlay, X } from 'lucide-react'
 import { getSectionByPath } from '@/app/navigation'
 import { Badge } from '@/components/ui/Badge'
+import { useLang, type Lang } from '@/i18n/language'
 import { cn } from '@/utils/cn'
+
+function LangSwitch() {
+  const { lang, setLang, t } = useLang()
+
+  const options: Array<{ code: Lang; label: string }> = [
+    { code: 'ru', label: 'RU' },
+    { code: 'en', label: 'EN' },
+  ]
+
+  return (
+    <div
+      className="flex h-10 flex-none items-center border border-line font-mono text-[10px] tracking-[0.12em]"
+      role="group"
+      aria-label={t('Язык интерфейса', 'Interface language')}
+    >
+      {options.map((option, index) => (
+        <button
+          key={option.code}
+          type="button"
+          onClick={() => setLang(option.code)}
+          aria-pressed={lang === option.code}
+          title={option.code === 'ru' ? 'Русский' : 'English'}
+          className={cn(
+            'h-full px-2.5 uppercase transition-colors',
+            index > 0 && 'border-l border-line',
+            lang === option.code
+              ? 'bg-accent/15 text-accent'
+              : 'text-muted hover:text-ink',
+          )}
+        >
+          {option.label}
+        </button>
+      ))}
+    </div>
+  )
+}
 
 type TopbarProps = {
   onOpenMobile: () => void
@@ -12,6 +49,7 @@ type TopbarProps = {
 
 export function Topbar({ onOpenMobile, presentation, onTogglePresentation }: TopbarProps) {
   const { pathname } = useLocation()
+  const { t } = useLang()
   const current = getSectionByPath(pathname)
 
   return (
@@ -21,7 +59,7 @@ export function Topbar({ onOpenMobile, presentation, onTogglePresentation }: Top
           type="button"
           onClick={onOpenMobile}
           className="flex h-10 w-10 flex-none items-center justify-center border border-line text-muted transition-colors hover:border-accent/50 hover:text-ink lg:hidden"
-          aria-label="Открыть меню"
+          aria-label={t('Открыть меню', 'Open menu')}
           aria-controls="site-navigation"
         >
           <Menu size={17} aria-hidden="true" />
@@ -50,6 +88,8 @@ export function Topbar({ onOpenMobile, presentation, onTogglePresentation }: Top
           </span>
         )}
 
+        <LangSwitch />
+
         {!presentation ? (
           pathname === '/' ? (
             <span
@@ -62,8 +102,8 @@ export function Topbar({ onOpenMobile, presentation, onTogglePresentation }: Top
             <NavLink
               to="/"
               className="flex h-10 w-10 items-center justify-center border border-line text-muted transition-colors hover:border-accent/50 hover:text-ink"
-              aria-label="На главный экран"
-              title="На главный экран"
+              aria-label={t('На главный экран', 'To the home screen')}
+              title={t('На главный экран', 'To the home screen')}
             >
               <Home size={15} aria-hidden="true" />
             </NavLink>

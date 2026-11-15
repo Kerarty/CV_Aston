@@ -9,6 +9,7 @@ import { PageFooterNav } from '@/components/ui/PageFooterNav'
 import { SystemMap } from '@/sections/CommandCenter/SystemMap'
 import { candidate } from '@/data/candidate'
 import { sections } from '@/app/navigation'
+import { useLang } from '@/i18n/language'
 import { usePrefersReducedMotion } from '@/hooks/useMediaQuery'
 
 function BootScreen({ onFinish }: { onFinish: () => void }) {
@@ -53,10 +54,12 @@ function BootScreen({ onFinish }: { onFinish: () => void }) {
 }
 
 function InfoStrip() {
+  const { lang } = useLang()
+  const education = lang === 'en' ? candidate.educationEn : candidate.education
   const items = [
     ['Candidate', candidate.latinName],
     ['Role', candidate.role],
-    ['Education', `${candidate.education.institution} / ${candidate.education.level}`],
+    ['Education', `${education.institution} / ${education.level}`],
     ['Profile', candidate.profile],
   ]
 
@@ -76,6 +79,7 @@ function InfoStrip() {
 
 export function CommandCenter() {
   const navigate = useNavigate()
+  const { lang, t } = useLang()
   const reduced = usePrefersReducedMotion()
   const [booting, setBooting] = useState(() => {
     if (reduced) return false
@@ -115,7 +119,9 @@ export function CommandCenter() {
       <div className="page-shell page-top">
         <section aria-labelledby="hero-title">
           <div className="flex items-center justify-between gap-4">
-            <p className="mono-label max-w-[70%] truncate">{candidate.programme}</p>
+            <p className="mono-label max-w-[70%] truncate">
+              {lang === 'en' ? candidate.programmeEn : candidate.programme}
+            </p>
             <p className="hidden font-mono text-[10px] uppercase tracking-[0.14em] text-[#68809f] sm:block">
               2026 / Application
             </p>
@@ -149,7 +155,7 @@ export function CommandCenter() {
 
           <div className="mt-6 flex flex-wrap items-center gap-2.5 lg:mt-8">
             <button type="button" onClick={() => navigate('/profile')} className={buttonClass('primary', 'sm:min-w-[230px]')}>
-              Начать знакомство
+              {t('Начать знакомство', 'Explore the portfolio')}
               <ArrowRight size={13} aria-hidden="true" />
             </button>
             {candidate.contacts.telegram ? (
@@ -181,7 +187,10 @@ export function CommandCenter() {
           </div>
         </section>
 
-        <section className="mt-8 grid gap-4 lg:mt-10 lg:gap-5 xl:grid-cols-[minmax(0,1.5fr)_minmax(350px,1fr)]" aria-label="Карта проекта и статус кандидата">
+        <section
+          className="mt-8 grid gap-4 lg:mt-10 lg:gap-5 xl:grid-cols-[minmax(0,1.5fr)_minmax(350px,1fr)]"
+          aria-label={t('Карта проекта и статус кандидата', 'Project map and candidate status')}
+        >
           <SystemMap />
 
           <div className="flex flex-col gap-4 lg:gap-5">
@@ -208,11 +217,15 @@ export function CommandCenter() {
               <dl className="mt-5 grid grid-cols-2 gap-px border border-line bg-line">
                 <div className="bg-panel/80 p-3">
                   <dt className="mono-label-sm">Education</dt>
-                  <dd className="mt-1 text-[12px] font-medium text-ink">{candidate.education.institution}</dd>
+                  <dd className="mt-1 text-[12px] font-medium text-ink">
+                    {lang === 'en' ? candidate.educationEn.institution : candidate.education.institution}
+                  </dd>
                 </div>
                 <div className="bg-panel/80 p-3">
                   <dt className="mono-label-sm">Level</dt>
-                  <dd className="mt-1 text-[12px] font-medium text-ink">{candidate.education.level}</dd>
+                  <dd className="mt-1 text-[12px] font-medium text-ink">
+                    {lang === 'en' ? candidate.educationEn.level : candidate.education.level}
+                  </dd>
                 </div>
               </dl>
 
@@ -226,7 +239,7 @@ export function CommandCenter() {
 
               <Button variant="ghost" className="mt-4 -ml-3 h-9 min-h-9" onClick={() => navigate('/profile')}>
                 <UserRound size={14} aria-hidden="true" />
-                Открыть профиль
+                {t('Открыть профиль', 'Open profile')}
                 <ArrowRight size={13} aria-hidden="true" />
               </Button>
             </div>
@@ -242,8 +255,10 @@ export function CommandCenter() {
                   <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#5d7392]">01 / intro</span>
                 </div>
                 <p className="mt-4 text-pretty text-[13.5px] leading-relaxed text-[#c4cedc]">
-                  Добро пожаловать в PROJECT ZERO — интерактивное пространство, в котором можно познакомиться с моим
-                  опытом, проектами, технической базой и подходом к управлению.
+                  {t(
+                    'Добро пожаловать в PROJECT ZERO — интерактивное пространство, в котором можно познакомиться с моим опытом, проектами, технической базой и подходом к управлению.',
+                    'Welcome to PROJECT ZERO — an interactive space to explore my experience, projects, technical foundation and approach to management.',
+                  )}
                 </p>
                 <button type="button" onClick={() => navigate('/profile')} className={buttonClass('primary', 'mt-6 w-full sm:w-auto')}>
                   <Play size={14} aria-hidden="true" />

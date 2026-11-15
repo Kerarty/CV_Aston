@@ -4,10 +4,11 @@ import { Badge } from '@/components/ui/Badge'
 import { PageFooterNav } from '@/components/ui/PageFooterNav'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { candidate } from '@/data/candidate'
+import { useLang } from '@/i18n/language'
 import { ProfileChain } from '@/sections/CandidateProfile/ProfileChain'
 
 const interests = ['Project Management', 'IT Operations', 'Business Analysis', 'Process Optimization', 'AI Tools & Analytics', 'Team Coordination']
-const strengths = [
+const strengthsRu = [
   'Системное мышление',
   'Самостоятельное обучение',
   'Инициативность',
@@ -15,9 +16,20 @@ const strengths = [
   'Техническая грамотность',
   'Интерес к аналитике',
 ]
+const strengthsEn = [
+  'Systems thinking',
+  'Self-driven learning',
+  'Initiative',
+  'Organizational skills',
+  'Technical literacy',
+  'Interest in analytics',
+]
 
 export function CandidateProfile() {
+  const { lang, t } = useLang()
   const [activeInterest, setActiveInterest] = useState<string | null>(null)
+  const education = lang === 'en' ? candidate.educationEn : candidate.education
+  const strengths = lang === 'en' ? strengthsEn : strengthsRu
 
   return (
     <div className="page-shell page-top">
@@ -31,13 +43,16 @@ export function CandidateProfile() {
             <span className="text-[#91a5bf]">MANAGEMENT MINDSET.</span>
           </>
         }
-        lead="Техническая база, интерес к аналитике и управлению, готовность двигаться от самостоятельной работы к координации команд."
+        lead={t(
+          'Техническая база, интерес к аналитике и управлению, готовность двигаться от самостоятельной работы к координации команд.',
+          'A technical foundation, an interest in analytics and management, and the readiness to move from working alone to coordinating teams.',
+        )}
         meta={
           <div className="flex flex-wrap gap-2">
-            <Badge variant="accent">{candidate.education.institution}</Badge>
-            <Badge>{candidate.education.level}</Badge>
-            <Badge>{candidate.education.course}</Badge>
-            <Badge>{candidate.education.form}</Badge>
+            <Badge variant="accent">{education.institution}</Badge>
+            <Badge>{education.level}</Badge>
+            <Badge>{education.course}</Badge>
+            <Badge>{education.form}</Badge>
           </div>
         }
       />
@@ -49,14 +64,14 @@ export function CandidateProfile() {
             <div className="relative">
               <p className="mono-label">Personal statement</p>
               <div className="mt-5 space-y-4 text-pretty text-[14px] leading-relaxed text-[#c4cede] sm:text-[15px]">
-                {candidate.summary.map((paragraph) => (
+                {t(candidate.summary, candidate.summaryEn).map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
               </div>
 
               <blockquote className="mt-7 border-l-2 border-accent pl-4">
                 <p className="font-display text-lg font-medium leading-snug tracking-[-0.02em] text-ink sm:text-xl">
-                  «{candidate.goal}»
+                  «{t(candidate.goal, candidate.goalEn)}»
                 </p>
                 <footer className="mt-3 font-mono text-[9px] uppercase tracking-[0.14em] text-muted">
                   Professional direction / 2026
@@ -102,11 +117,11 @@ export function CandidateProfile() {
 
             <dl className="divide-y divide-line">
               {[
-                ['Education', `${candidate.education.institution} / ${candidate.education.level}`],
-                ['Direction', candidate.education.programme],
-                ['Course', candidate.education.course],
-                ['Format', candidate.education.form],
-                ['Programme', candidate.programme],
+                ['Education', `${education.institution} / ${education.level}`],
+                ['Direction', education.programme],
+                ['Course', education.course],
+                ['Format', education.form],
+                ['Programme', lang === 'en' ? candidate.programmeEn : candidate.programme],
               ].map(([label, value]) => (
                 <div key={label} className="grid grid-cols-[96px_minmax(0,1fr)] gap-3 py-3">
                   <dt className="mono-label-sm pt-0.5">{label}</dt>
@@ -118,7 +133,10 @@ export function CandidateProfile() {
             <div className="mt-4 flex items-center gap-2 border border-line bg-base/35 p-3">
               <GraduationCap size={15} className="flex-none text-teal" aria-hidden="true" />
               <p className="text-[11px] leading-snug text-muted">
-                Техническая база БГУИР + самостоятельные проекты + организаторский опыт.
+                {t(
+                  'Техническая база БГУИР + самостоятельные проекты + организаторский опыт.',
+                  'A BSUIR technical foundation + self-driven projects + organizational experience.',
+                )}
               </p>
             </div>
           </div>
@@ -132,15 +150,15 @@ export function CandidateProfile() {
             <GraduationCap size={15} className="text-[#627b9b]" aria-hidden="true" />
           </div>
           <h2 id="education-heading" className="mt-4 font-display text-[1.7rem] font-bold leading-none tracking-[-0.04em]">
-            БГУИР
+            {education.institution}
           </h2>
-          <p className="mt-2 text-[12px] leading-relaxed text-muted">{candidate.education.institutionFull}</p>
+          <p className="mt-2 text-[12px] leading-relaxed text-muted">{education.institutionFull}</p>
           <div className="mt-5 space-y-2 border-t border-line pt-4">
             {[
-              ['Специальность', candidate.education.programme],
-              ['Уровень', candidate.education.level],
-              ['Курс', candidate.education.course],
-              ['Форма', candidate.education.form],
+              [t('Специальность', 'Major'), education.programme],
+              [t('Уровень', 'Level'), education.level],
+              [t('Курс', 'Year'), education.course],
+              [t('Форма', 'Format'), education.form],
             ].map(([label, value]) => (
               <div key={label} className="grid grid-cols-[92px_minmax(0,1fr)] gap-3">
                 <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#68809f]">{label}</span>
@@ -156,7 +174,7 @@ export function CandidateProfile() {
             <Sparkles size={15} className="text-[#627b9b]" aria-hidden="true" />
           </div>
           <h2 id="interests-heading" className="mt-4 font-display text-lg font-semibold tracking-[-0.02em]">
-            Где хочу развиваться
+            {t('Где хочу развиваться', 'Where I want to grow')}
           </h2>
           <ul className="mt-4 space-y-1.5">
             {interests.map((interest) => (
@@ -176,8 +194,11 @@ export function CandidateProfile() {
           </ul>
           <p className="mt-3 min-h-[32px] text-[10.5px] leading-snug text-muted" aria-live="polite">
             {activeInterest
-              ? 'Направление из списка профессиональных интересов; подтверждается учебными и личными проектами.'
-              : 'Нажмите на направление, чтобы отметить его в интерфейсе.'}
+              ? t(
+                  'Направление из списка профессиональных интересов; подтверждается учебными и личными проектами.',
+                  'A direction from the list of professional interests; supported by academic and personal projects.',
+                )
+              : t('Нажмите на направление, чтобы отметить его в интерфейсе.', 'Click a direction to mark it in the interface.')}
           </p>
         </section>
 
@@ -187,7 +208,7 @@ export function CandidateProfile() {
             <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#5d7392]">06 points</span>
           </div>
           <h2 id="strengths-heading" className="mt-4 font-display text-lg font-semibold tracking-[-0.02em]">
-            Что помогает в работе
+            {t('Что помогает в работе', 'What helps in the work')}
           </h2>
           <ol className="mt-4 space-y-2.5">
             {strengths.map((strength, index) => (
@@ -198,7 +219,10 @@ export function CandidateProfile() {
             ))}
           </ol>
           <p className="mt-4 border-t border-line pt-3 text-[10.5px] leading-snug text-[#6e86a5]">
-            Без рейтингов и процентных оценок — это качественные характеристики, а не измеренные показатели.
+            {t(
+              'Без рейтингов и процентных оценок — это качественные характеристики, а не измеренные показатели.',
+              'No ratings or percentages — these are qualitative characteristics, not measured metrics.',
+            )}
           </p>
         </section>
       </div>
