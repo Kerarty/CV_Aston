@@ -263,7 +263,7 @@ export function Contact() {
               <ul className="space-y-1">
                 {[
                   { index: '01', label: 'Candidate Profile', to: '/profile', ru: 'Техническая база и подход' },
-                  { index: '02', label: 'Project Archive', to: '/archive', ru: 'Три проектных досье' },
+                  { index: '02', label: 'Project Archive', to: '/archive', ru: 'Досье проектного опыта' },
                   { index: '03', label: 'ASTON Integration', to: '/aston', ru: 'Направления программы' },
                 ].map((item) => (
                   <li key={item.to}>
@@ -295,7 +295,7 @@ export function Contact() {
             <div className="min-w-0">
               <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#6f86a3]">Portfolio / 2026</p>
               <p className="mt-1 truncate text-[11px] text-[#9fb0c5]">
-                {projects.length} {t('проекта', 'projects')} · {lang === 'en' ? candidate.educationEn.institution : candidate.education.institution} · {lang === 'en' ? candidate.programmeEn : candidate.programme}
+                {projects.length} {t('досье', 'dossiers')} · {lang === 'en' ? candidate.educationEn.institution : candidate.education.institution} · {lang === 'en' ? candidate.programmeEn : candidate.programme}
               </p>
             </div>
           </div>

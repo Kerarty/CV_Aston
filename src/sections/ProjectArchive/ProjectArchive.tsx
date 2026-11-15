@@ -174,12 +174,12 @@ export function ProjectArchive() {
           </>
         }
         lead={t(
-          'Три категории проектного опыта: дипломная работа, самостоятельный прототип и учебные технические проекты.',
-          'Three categories of project experience: a diploma project, a self-driven prototype and academic technical projects.',
+          'Семь досье проектного опыта: дипломная работа, SDK и играбельная реклама, серия интерактивных резюме, сайты для заказчиков, бот автоматизации и учебные проекты.',
+          'Seven dossiers of project experience: a diploma project, an SDK and playable ads, a series of interactive CVs, client websites, an automation bot and academic projects.',
         )}
         meta={
           <div className="flex flex-wrap items-center gap-2">
-            <Badge variant="accent">03 dossiers</Badge>
+            <Badge variant="accent">{String(projects.length).padStart(2, '0')} dossiers</Badge>
             <Badge>Diploma</Badge>
             <Badge>Personal</Badge>
             <Badge>Academic</Badge>
@@ -198,7 +198,7 @@ export function ProjectArchive() {
             </div>
             <span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.12em] text-[#68809f]">
               <Layers size={12} aria-hidden="true" />
-              03
+              {String(projects.length).padStart(2, '0')}
             </span>
           </div>
 

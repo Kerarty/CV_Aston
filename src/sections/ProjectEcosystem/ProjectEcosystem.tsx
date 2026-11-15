@@ -135,8 +135,8 @@ const layers: Array<{ index: string; label: string; name: LocalText; text: Local
     label: 'PORTFOLIO ISLAND',
     name: { ru: 'Проекты', en: 'The projects' },
     text: {
-      ru: 'Factory Management, Runner, Technical Projects.',
-      en: 'Factory Management, Runner, Technical Projects.',
+      ru: 'От дипломной работы и SDK до клиентских сайтов и ботa автоматизации.',
+      en: 'From the diploma project and an SDK to client sites and an automation bot.',
     },
   },
 ]
@@ -358,7 +358,7 @@ export default function ProjectEcosystem() {
                 <div className="mt-5 border-t border-line pt-4">
                   <div className="flex items-center justify-between gap-3">
                     <p className="mono-label-sm">Portfolio dossiers</p>
-                    <span className="font-mono text-[9px] text-[#68809f]">03</span>
+                    <span className="font-mono text-[9px] text-[#68809f]">{String(projects.length).padStart(2, '0')}</span>
                   </div>
                   <ul className="mt-2 divide-y divide-line/70">
                     {projects.map((project) => (

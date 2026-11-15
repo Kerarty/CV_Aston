@@ -120,6 +120,126 @@ export function ProjectGlyph({ glyph, className }: { glyph: GlyphType; className
         </g>
       ) : null}
 
+      {glyph === 'ads' ? (
+        <g>
+          <g stroke="#3D5B7E" strokeWidth="1.2">
+            <path d="M170 42h80a10 10 0 0 1 10 10v156a10 10 0 0 1-10 10h-80a10 10 0 0 1-10-10V52a10 10 0 0 1 10-10z" />
+            <path d="M170 190h80" />
+            <circle cx="210" cy="199" r="4" />
+          </g>
+          <g stroke="#478CFF" strokeWidth="1.4">
+            <path d="M196 84l44 26-44 26z" fill="none" />
+            <path d="M186 132h48M186 142h30M186 152h40" />
+          </g>
+          <g stroke="#32D6C5" strokeWidth="0.9" opacity="0.8">
+            <path d="M300 60v60M300 60l-24 14M300 60l24 14" />
+            <path d="M322 74c8 10 8 22 0 32" />
+          </g>
+          <g fill="#32D6C5">
+            <circle cx="138" cy="72" r="3" />
+            <circle cx="330" cy="118" r="2.5" />
+          </g>
+          <text x="300" y="176" fill="#8C9AAF" fontFamily="JetBrains Mono, monospace" fontSize="7" letterSpacing="1">SINGLE FILE / NO NETWORK</text>
+          <text x="70" y="72" fill="#8C9AAF" fontFamily="JetBrains Mono, monospace" fontSize="7" letterSpacing="1">AD SDK / ADAPTERS</text>
+          <path d="M70 82v108" stroke="#3D5B7E" strokeWidth="0.8" strokeDasharray="2 5" />
+        </g>
+      ) : null}
+
+      {glyph === 'pipeline' ? (
+        <g>
+          <g stroke="#3D5B7E" strokeWidth="1.2">
+            <path d="M60 96h70v56H60z" />
+            <path d="M160 96h70v56h-70z" />
+            <path d="M260 96h70v56h-70z" />
+            <path d="M360 96h50v56h-50z" />
+          </g>
+          <g stroke="#478CFF" strokeWidth="1.2">
+            <path d="M136 124h16M146 118l6 6-6 6" />
+            <path d="M236 124h16M246 118l6 6-6 6" />
+            <path d="M336 124h16M346 118l6 6-6 6" />
+          </g>
+          <g stroke="#32D6C5" strokeWidth="0.9" opacity="0.8">
+            <path d="M70 108h50M70 116h34" />
+            <path d="M270 108h50M270 116h40" />
+          </g>
+          <g fill="#32D6C5">
+            <rect x="70" y="138" width="6" height="6" />
+            <rect x="270" y="138" width="6" height="6" />
+            <circle cx="385" cy="112" r="3" />
+          </g>
+          <g fill="#8C9AAF" fontFamily="JetBrains Mono, monospace" fontSize="7" letterSpacing="1">
+            <text x="60" y="172">REQUIREMENTS</text>
+            <text x="160" y="172">CONCEPT</text>
+            <text x="260" y="172">PROTOTYPE</text>
+            <text x="360" y="172">RELEASE</text>
+          </g>
+          <path d="M60 186h350" stroke="#3D5B7E" strokeWidth="0.8" strokeDasharray="2 5" />
+          <g fill="#478CFF" fontFamily="JetBrains Mono, monospace" fontSize="7" letterSpacing="1">
+            <text x="60" y="202">× 18 ITERATIONS / 01 REPEATABLE PROCESS</text>
+          </g>
+        </g>
+      ) : null}
+
+      {glyph === 'sites' ? (
+        <g>
+          <g stroke="#3D5B7E" strokeWidth="1.2">
+            <path d="M60 60h180v120H60z" />
+            <path d="M60 82h180" />
+            <circle cx="72" cy="71" r="3" />
+            <circle cx="82" cy="71" r="3" />
+            <path d="M92 71h60" />
+          </g>
+          <g stroke="#478CFF" strokeWidth="1.2">
+            <path d="M70 94h160M70 112h100M70 128h130" opacity="0.85" />
+            <path d="M170 96h60v44h-60z" fill="none" />
+          </g>
+          <g stroke="#3D5B7E" strokeWidth="1.2">
+            <path d="M240 100h120v92H240z" fill="#0D1523" />
+            <path d="M240 118h120" />
+            <circle cx="252" cy="109" r="2.6" />
+          </g>
+          <g stroke="#32D6C5" strokeWidth="0.9" opacity="0.85">
+            <path d="M252 130h96M252 142h70M252 154h84" />
+          </g>
+          <g fill="#32D6C5">
+            <circle cx="360" cy="88" r="2.6" />
+            <rect x="84" y="164" width="5" height="5" />
+          </g>
+          <g fill="#8C9AAF" fontFamily="JetBrains Mono, monospace" fontSize="7" letterSpacing="1">
+            <text x="60" y="212">CLIENT BRIEF → REQUIREMENTS → PROTOTYPE</text>
+          </g>
+          <text x="300" y="60" fill="#8C9AAF" fontFamily="JetBrains Mono, monospace" fontSize="7" letterSpacing="1">FEEDBACK LOOP</text>
+          <path d="M300 66v14" stroke="#3D5B7E" strokeWidth="0.8" strokeDasharray="2 4" />
+        </g>
+      ) : null}
+
+      {glyph === 'bot' ? (
+        <g>
+          <g stroke="#3D5B7E" strokeWidth="1.2">
+            <path d="M60 70h160a12 12 0 0 1 12 12v36a12 12 0 0 1-12 12h-96l-24 20v-20h-40a12 12 0 0 1-12-12V82a12 12 0 0 1 12-12z" />
+            <path d="M210 168h150a12 12 0 0 1 12 12v28a12 12 0 0 1-12 12h-120l-20 16v-16h-10a12 12 0 0 1-12-12v-28a12 12 0 0 1 12-12z" />
+          </g>
+          <g stroke="#478CFF" strokeWidth="1.2">
+            <path d="M76 92h120M76 106h84" />
+          </g>
+          <g stroke="#32D6C5" strokeWidth="1">
+            <path d="M240 190h100M240 202h76" />
+            <path d="M330 190l6 6-12 8" />
+          </g>
+          <g fill="#32D6C5">
+            <circle cx="196" cy="60" r="3" />
+            <circle cx="86" cy="126" r="2.4" />
+          </g>
+          <g fill="#478CFF" fontFamily="JetBrains Mono, monospace" fontSize="7" letterSpacing="1">
+            <text x="60" y="226">QUESTION → ANSWER → CHECK → TOPIC</text>
+          </g>
+          <g stroke="#3D5B7E" strokeWidth="0.8" strokeDasharray="2 4">
+            <path d="M150 54v14M232 60v96" />
+          </g>
+          <text x="60" y="60" fill="#8C9AAF" fontFamily="JetBrains Mono, monospace" fontSize="7" letterSpacing="1">PYTHON / TG BOT API</text>
+        </g>
+      ) : null}
+
       <g stroke="#478CFF" strokeWidth="1" opacity="0.8">
         <path d="M18 18h16M18 18v16M402 18h-16M402 18v16M18 222h16M18 222v-16M402 222h-16M402 222v-16" />
       </g>

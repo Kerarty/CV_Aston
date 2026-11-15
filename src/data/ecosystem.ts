@@ -121,10 +121,10 @@ export const ecosystemNodes: EcosystemNode[] = [
     ru: 'Портфолио проектов',
     kind: 'portfolio',
     eyebrow: 'Projects / archive',
-    summary: 'Три проекта, на которых проверялись идеи, инструменты и подходы.',
+    summary: 'Проекты, на которых проверялись идеи, инструменты и подходы.',
     description:
-      'Портфолио — не набор витрин, а рабочий полигон. Дипломная симуляция показала ценность декомпозиции, Runner — скорость пути от идеи до публикации, учебные работы сформировали техническую базу.',
-    tags: ['Factory Management', 'Runner', 'Technical Projects'],
+      'Портфолио — не набор витрин, а рабочий полигон: дипломная симуляция, SDK и играбельная реклама, серия интерактивных резюме, сайты для реальных заказчиков, бот автоматизации. Каждое досье разбирает, что именно в проекте было организационным, а не только техническим.',
+    tags: ['Factory Management', 'Playable Ads', 'CV Series', 'Client Sites', 'Exam Prep Bot'],
     link: {
       label: 'Открыть Project Archive',
       to: '/archive',
@@ -240,10 +240,10 @@ const ecosystemNodesEn: EcosystemNode[] = [
     ru: 'Портфолио проектов',
     kind: 'portfolio',
     eyebrow: 'Projects / archive',
-    summary: 'Three projects where ideas, tools and approaches were tested.',
+    summary: 'The projects where ideas, tools and approaches were tested.',
     description:
-      'The portfolio is not a showcase but a working ground. The diploma simulation proved the value of decomposition, Runner proved the speed from idea to publication, and the academic work built the technical foundation.',
-    tags: ['Factory Management', 'Runner', 'Technical Projects'],
+      'The portfolio is not a showcase but a working ground: a diploma simulation, an SDK and playable ads, a series of interactive CVs, websites for real clients, an automation bot. Each dossier breaks down what in the project was organizational, not only technical.',
+    tags: ['Factory Management', 'Playable Ads', 'CV Series', 'Client Sites', 'Exam Prep Bot'],
     link: {
       label: 'Open Project Archive',
       to: '/archive',
