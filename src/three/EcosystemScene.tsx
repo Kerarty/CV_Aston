@@ -1,11 +1,12 @@
 import { Suspense, useEffect, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
+import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing'
 import * as THREE from 'three'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import type { EcosystemNodeId } from '@/data/ecosystem'
 import { getEcosystemNode, moduleNodes } from '@/data/ecosystem'
-import { Connections, CoreNode, DataMotes, GroundRings, ModuleNode, PortfolioNode } from '@/three/EcosystemNodes'
+import { CargoDrone, Connections, CoreNode, DataMotes, GroundRings, ModuleNode, PortfolioNode, Starfield } from '@/three/EcosystemNodes'
 
 type ProgressRef = { current: { value: number } }
 
@@ -212,6 +213,8 @@ function SceneContent({
       <Connections selected={selected} />
       <GroundRings />
       <DataMotes />
+      <Starfield />
+      <CargoDrone />
 
       <OrbitControls
         ref={controlsRef}
@@ -249,6 +252,16 @@ export function EcosystemScene(props: EcosystemSceneProps) {
       <Suspense fallback={null}>
         <SceneContent {...props} />
       </Suspense>
+      <EffectComposer enableNormalPass={false}>
+        <Bloom
+          mipmapBlur
+          intensity={0.62}
+          luminanceThreshold={0.24}
+          luminanceSmoothing={0.42}
+          radius={0.72}
+        />
+        <Vignette eskil={false} offset={0.22} darkness={0.62} />
+      </EffectComposer>
     </Canvas>
   )
 }

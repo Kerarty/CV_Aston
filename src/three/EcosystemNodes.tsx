@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef } from 'react'
-import { Line } from '@react-three/drei'
+import { Html, Line } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import type { EcosystemModuleNode, EcosystemNode, EcosystemNodeId } from '@/data/ecosystem'
@@ -22,20 +22,25 @@ type ModuleProps = Omit<NodeProps, 'node'> & {
   node: EcosystemModuleNode
 }
 
-function useReveal(progress: ProgressRef, delay: number, baseY: number) {
+function useReveal(progress: ProgressRef, delay: number, baseY: number, active: boolean = false) {
   const ref = useRef<THREE.Group>(null)
+  const boost = useRef(0)
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     const group = ref.current
     if (!group) return
+
+    // Плавный hover-отклик: здание слегка «подпрыгивает» масштабом.
+    const targetBoost = active ? 1 : 0
+    boost.current += (targetBoost - boost.current) * Math.min(1, delta * 8)
 
     const value = progress.current?.value ?? 1
     const local = THREE.MathUtils.clamp((value - delay) / 0.55, 0, 1)
     const eased = local * local * (3 - 2 * local)
-    const scale = Math.max(0.001, eased)
+    const scale = Math.max(0.001, eased * (1 + boost.current * 0.055))
 
     group.scale.setScalar(scale)
-    group.position.y = baseY - (1 - eased) * 3.4
+    group.position.y = baseY - (1 - eased) * 3.4 + boost.current * 0.12
     group.visible = eased > 0.002
   })
 
@@ -90,6 +95,107 @@ function useGlowTexture() {
   }, [])
 }
 
+/** Голографическая табличка над узлом: индекс + название направления. */
+function HoloLabel({ position, index, label, accent = false }: {
+  position: [number, number, number]
+  index: string
+  label: string
+  accent?: boolean
+}) {
+  return (
+    <Html position={position} center distanceFactor={16} zIndexRange={[18, 0]}>
+      <div
+        className="pointer-events-none flex items-center gap-1.5 whitespace-nowrap border px-2 py-1 font-mono text-[9px] uppercase tracking-[0.14em] backdrop-blur-sm"
+        style={{
+          borderColor: accent ? 'rgba(71,140,255,0.55)' : 'rgba(39,54,75,0.9)',
+          background: 'rgba(7,12,21,0.82)',
+          color: accent ? '#9cc0ff' : '#8c9aaf',
+        }}
+      >
+        <span style={{ color: '#478cff' }}>{index}</span>
+        <span aria-hidden="true" style={{ color: '#27364b' }}>|</span>
+        {label}
+      </div>
+    </Html>
+  )
+}
+
+/** Расширяющийся сонар-импульс под выбранным узлом. */
+function SelectionPulse({ active }: { active: boolean }) {
+  const ref = useRef<THREE.Mesh>(null)
+
+  useFrame((state) => {
+    const mesh = ref.current
+    if (!mesh) return
+    const t = (state.clock.elapsedTime % 1.7) / 1.7
+    mesh.scale.setScalar(1 + t * 2.1)
+    const material = mesh.material as THREE.MeshBasicMaterial
+    material.opacity = active ? (1 - t) * 0.45 : 0
+    mesh.visible = active
+  })
+
+  return (
+    <mesh ref={ref} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.3, 0]}>
+      <ringGeometry args={[0.92, 1, 64]} />
+      <meshBasicMaterial color="#478cff" transparent opacity={0} depthWrite={false} side={THREE.DoubleSide} />
+    </mesh>
+  )
+}
+
+/** Спутник на наклонной орбите вокруг ядра. */
+function CoreSatellite({ glow }: { glow: THREE.Texture | null }) {
+  const ref = useRef<THREE.Group>(null)
+
+  useFrame((state) => {
+    const group = ref.current
+    if (!group) return
+    const t = state.clock.elapsedTime * 0.24
+    const radius = 2.55
+    group.position.set(
+      Math.cos(t) * radius,
+      1.35 + Math.sin(t * 0.8) * 0.6,
+      Math.sin(t) * radius,
+    )
+    group.rotation.y = -t * 1.4
+    group.rotation.z = 0.4
+  })
+
+  return (
+    <group ref={ref} scale={0.55}>
+      <mesh>
+        <boxGeometry args={[0.16, 0.16, 0.16]} />
+        <meshStandardMaterial
+          color="#8fb4e2"
+          metalness={0.45}
+          roughness={0.3}
+          emissive="#2f6ed0"
+          emissiveIntensity={0.55}
+        />
+      </mesh>
+      <mesh position={[0.26, 0, 0]}>
+        <boxGeometry args={[0.24, 0.02, 0.11]} />
+        <meshStandardMaterial color="#2f4358" metalness={0.6} roughness={0.35} emissive="#478cff" emissiveIntensity={0.3} />
+      </mesh>
+      <mesh position={[-0.26, 0, 0]}>
+        <boxGeometry args={[0.24, 0.02, 0.11]} />
+        <meshStandardMaterial color="#2f4358" metalness={0.6} roughness={0.35} emissive="#478cff" emissiveIntensity={0.3} />
+      </mesh>
+      {glow ? (
+        <sprite scale={[0.55, 0.55, 1]}>
+          <spriteMaterial
+            map={glow}
+            color="#32d6c5"
+            transparent
+            opacity={0.4}
+            depthWrite={false}
+            blending={THREE.AdditiveBlending}
+          />
+        </sprite>
+      ) : null}
+    </group>
+  )
+}
+
 function Platform({ active, selected }: { active: boolean; selected: boolean }) {
   return (
     <group>
@@ -125,9 +231,10 @@ function Platform({ active, selected }: { active: boolean; selected: boolean }) 
 }
 
 export function CoreNode({ node, selected, hovered, onSelect, onHover, progress }: NodeProps) {
-  const revealRef = useReveal(progress, 0, 2.35)
+  const revealRef = useReveal(progress, 0, 2.35, selected || hovered)
   const ringsRef = useRef<THREE.Group>(null)
   const shellRef = useRef<THREE.Mesh>(null)
+  const coreMeshRef = useRef<THREE.Mesh>(null)
   const orbitRef = useRef<THREE.Group>(null)
   const glow = useGlowTexture()
   const active = selected || hovered
@@ -159,6 +266,11 @@ export function CoreNode({ node, selected, hovered, onSelect, onHover, progress 
     if (orbitRef.current) {
       orbitRef.current.rotation.y = time * 0.32
     }
+    // «Дыхание» ядра: пульсация свечения внутренней сферы.
+    const coreMaterial = coreMeshRef.current?.material as THREE.MeshStandardMaterial | undefined
+    if (coreMaterial) {
+      coreMaterial.emissiveIntensity = 1.0 + Math.sin(time * 1.7) * (active ? 0.42 : 0.22)
+    }
   })
 
   return (
@@ -186,7 +298,7 @@ export function CoreNode({ node, selected, hovered, onSelect, onHover, progress 
         <meshBasicMaterial color="#5278a6" wireframe transparent opacity={active ? 0.55 : 0.28} />
       </mesh>
 
-      <mesh>
+      <mesh ref={coreMeshRef}>
         <icosahedronGeometry args={[0.56, 1]} />
         <meshStandardMaterial
           color="#8fb4e2"
@@ -217,6 +329,10 @@ export function CoreNode({ node, selected, hovered, onSelect, onHover, progress 
         ))}
       </group>
 
+      <CoreSatellite glow={glow} />
+
+      <HoloLabel position={[0, 4.4, 0]} index="00" label="PROJECT ZERO" accent={active} />
+
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.15, 0]}>
         <ringGeometry args={[1.42, 1.45, 72]} />
         <meshBasicMaterial
@@ -239,7 +355,7 @@ export function CoreNode({ node, selected, hovered, onSelect, onHover, progress 
 }
 
 export function ModuleNode({ node, selected, hovered, onSelect, onHover, progress, revealDelay }: ModuleProps) {
-  const revealRef = useReveal(progress, revealDelay, 0)
+  const revealRef = useReveal(progress, revealDelay, 0, selected || hovered)
   const { object } = useTintedModel(node.model, 'city')
   const active = selected || hovered
 
@@ -252,10 +368,13 @@ export function ModuleNode({ node, selected, hovered, onSelect, onHover, progres
       {...nodeHandlers(node, onSelect, onHover)}
     >
       <Platform active={active} selected={selected} />
+      <SelectionPulse active={selected} />
 
       <group position={[0, 0.24, 0]}>
         <primitive object={object} scale={node.scale} />
       </group>
+
+      <HoloLabel position={[0, 3.6, 0]} index={node.index} label={node.label} accent={active} />
 
       {selected ? (
         <mesh position={[0, 2.3, 0]}>
@@ -381,7 +500,7 @@ function IslandDetails() {
 }
 
 export function PortfolioNode({ node, selected, hovered, onSelect, onHover, progress }: NodeProps) {
-  const revealRef = useReveal(progress, 0.24, -3.3)
+  const revealRef = useReveal(progress, 0.24, -3.3, selected || hovered)
   const platform = useTintedModel('island-platform.glb', 'tech')
   const hangar = useTintedModel('factory-hangar.glb', 'tech')
   const chimney = useTintedModel('factory-chimney.glb', 'tech')
@@ -397,6 +516,7 @@ export function PortfolioNode({ node, selected, hovered, onSelect, onHover, prog
       {...nodeHandlers(node, onSelect, onHover)}
     >
       <primitive object={platform.object} scale={2.0} />
+      <SelectionPulse active={selected} />
       <mesh position={[0, -0.6, 0]}>
         <coneGeometry args={[1.64, 1.15, 7]} />
         <meshStandardMaterial color="#0a1421" metalness={0.28} roughness={0.78} />
@@ -427,6 +547,8 @@ export function PortfolioNode({ node, selected, hovered, onSelect, onHover, prog
       <group position={[-0.94, 0.22, -0.84]} rotation={[0, 0.6, 0]}>
         <primitive object={structure.object} scale={0.68} />
       </group>
+
+      <HoloLabel position={[0, 2.1, 0]} index="05" label="PORTFOLIO ISLAND" accent={active} />
 
       <HitMesh radius={2.08} height={1.8} y={0.75} />
 
@@ -575,5 +697,90 @@ export function DataMotes() {
         depthWrite={false}
       />
     </points>
+  )
+}
+
+/** Далёкое звёздное небо: точки на сплюснутой сфере вокруг сцены. */
+export function Starfield() {
+  const [positions] = useState(() => {
+    const count = 1100
+    const values = new Float32Array(count * 3)
+    for (let index = 0; index < count; index += 1) {
+      const radius = 56 + Math.random() * 26
+      const theta = Math.random() * Math.PI * 2
+      const phi = Math.acos(2 * Math.random() - 1)
+      values[index * 3] = radius * Math.sin(phi) * Math.cos(theta)
+      values[index * 3 + 1] = radius * Math.cos(phi) * 0.55 - 2
+      values[index * 3 + 2] = radius * Math.sin(phi) * Math.sin(theta)
+    }
+    return values
+  })
+
+  return (
+    <points>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+      </bufferGeometry>
+      <pointsMaterial
+        color="#a9c2e0"
+        size={0.42}
+        sizeAttenuation
+        transparent
+        opacity={0.55}
+        depthWrite={false}
+        fog={false}
+      />
+    </points>
+  )
+}
+
+const DRONE_FROM = new THREE.Vector3(0, 1.7, 0.5)
+const DRONE_TO = new THREE.Vector3(-0.8, -2.4, 1.0)
+
+/** Грузовой дрон, курсирующий между ядром и Portfolio Island. */
+export function CargoDrone() {
+  const ref = useRef<THREE.Group>(null)
+  const glow = useGlowTexture()
+
+  useFrame((state) => {
+    const group = ref.current
+    if (!group) return
+    const time = state.clock.elapsedTime
+    // Пинг-понг 0 → 1 → 0: дрон летит туда и обратно.
+    const phase = Math.abs(((time * 0.11) % 2) - 1)
+    group.position.lerpVectors(DRONE_FROM, DRONE_TO, phase)
+    group.position.y += Math.sin(time * 1.8) * 0.09
+    group.lookAt(DRONE_TO)
+  })
+
+  return (
+    <group ref={ref} scale={0.9}>
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <capsuleGeometry args={[0.055, 0.16, 4, 8]} />
+        <meshStandardMaterial
+          color="#1d2d40"
+          metalness={0.55}
+          roughness={0.4}
+          emissive="#478cff"
+          emissiveIntensity={0.45}
+        />
+      </mesh>
+      <mesh position={[0, 0, 0.12]}>
+        <boxGeometry args={[0.1, 0.05, 0.06]} />
+        <meshStandardMaterial color="#32d6c5" emissive="#32d6c5" emissiveIntensity={0.8} />
+      </mesh>
+      {glow ? (
+        <sprite scale={[0.75, 0.75, 1]}>
+          <spriteMaterial
+            map={glow}
+            color="#32d6c5"
+            transparent
+            opacity={0.5}
+            depthWrite={false}
+            blending={THREE.AdditiveBlending}
+          />
+        </sprite>
+      ) : null}
+    </group>
   )
 }
